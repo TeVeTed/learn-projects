@@ -1,0 +1,17 @@
+doctype html
+html( lang='en' )
+  head
+    title
+      block title
+    meta( charset='utf-8' )
+    meta( http-equiv='X-UA-Compatible', content='IE=edge' )
+    meta( name='viewport' content='width=device-width, initial-scale=1.0' )
+    link( href='css/style.css', rel='stylesheet', type='text/css' )
+    link( href='//fonts.googleapis.com/css?family=Bangers|Indie+Flower', rel='stylesheet', type='text/css' )
+    script( src='//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js' )
+    script( src='js/site.min.js' )
+    script(type='text/coffeescript')
+      w = Math.max document.documentElement.clientWidth, window.innerWidth or 0
+      new WOW().init() if w > 1200
+  body
+    block content

@@ -1,0 +1,268 @@
+@import nib
+@import _normalize
+@import _animate
+
+$base_font_size = 16
+$base_font_size_ems = unit($base_font_size / 16, em)
+
+$px = unit(1 / $base_font_size, rem)
+
+$type_regular_font_family = 'Indie Flower'
+$type_h_font_family = 'Bangers'
+
+$type_h_font_sizes = {
+  'h1': 3,
+  'h2': 2.35,
+  'h3': 1.95,
+  'h4': 1.65,
+  'h5': 1.313,
+  'h6': 1.125
+}
+
+$type_h_font_vmargins = {
+  'h1': 1,
+  'h2': 1,
+  'h3': 1.313,
+  'h4': 1.313,
+  'h5': 1.313,
+  'h6': 1.313
+}
+
+$type_h_font_lineheight = 1.313em
+
+$type_wrapper_font_size = 18 * $px
+
+$layout_site_width = 1200
+
+$color_site_bg = lighten( black, 10% )
+$color_wrapper_bg = white
+
+$color_text_default = black
+$color_link_default = #c00
+$color_link_hover = saturate( $color_link_default, 70% )
+
+$color_highlight = #ffc600
+$color_shadow = black
+
+
+h_tags($factor=1)
+  h1, h2, h3, h4, h5, h6
+      font-family $type_h_font_family
+      line-height $type_h_font_lineheight
+      font-weight 400
+  for h_lvl, value in $type_h_font_sizes
+      {h_lvl}
+        ((value * $factor) < 1) ? $size = 1 : $size = value * $factor
+        font-size unit( $size, em )
+        margin unit( $type_h_font_vmargins[h_lvl], em ) 0
+
+raised()
+  box-shadow 1 * $px 1 * $px 3 * $px rgba(0,0,0,0.5)
+
+*
+  box-sizing border-box
+
+html, body
+  height 100%
+
+html
+  font-size $base_font_size_ems
+  font-family $type_regular_font_family
+  background-color $color_site_bg
+  color $color_text_default
+  overflow-x hidden
+
+img
+  max-width 100%
+  height auto
+
+a, a:link, a:visited
+  text-decoration none
+  color $color_link_hover
+
+a:hover, a:active
+  text-decoration none
+  color $color_link_hover
+
+h_tags()
+
+.pane
+  display table
+  width 100%
+  height 100%
+  position relative
+  padding 20 * $px
+
+.wrapper
+  display table-cell
+  vertical-align middle
+  margin 0 auto
+  padding 80 * $px 0
+  background-color $color_wrapper_bg
+  font-size $type_wrapper_font_size
+  text-align center
+  border 10 * $px solid $color_shadow
+  box-shadow 4 * $px 4 * $px 5 * $px rgba(0,0,0,.5)
+  h1
+    margin-top 0
+    font-family $type_regular_font_family
+  > ul
+    $skew = 1.5deg
+    max-width $layout_site_width * $px
+    list-style-type none
+    margin 0 auto
+    padding 0
+    > li
+      $spacing = 0.25%
+      raised()
+      border 8 * $px solid black
+      background-color $color_link_default
+      float left
+      width 24.5%
+      margin 0 $spacing
+      height 230 * $px
+      padding 40 * $px 30 * $px
+      transform skewY($skew * -1)
+      &:nth-child(8n + 1), &:nth-child(8n + 3), &:nth-child(8n + 6), &:nth-child(8n + 8)
+        background: $color_highlight
+      &:nth-child(4n + 5)
+        clear left
+      &:nth-child(4n + 1)
+        margin-top 3 * $spacing
+      &:nth-child(4n + 2)
+        margin-top 2 * $spacing
+      &:nth-child(4n + 3)
+        margin-top 1 * $spacing
+    li
+      h3
+        margin 0
+        transform: skewY($skew)
+      ul
+        list-style-type none
+        marhin 0
+        padding 0
+        li
+          transform: skewY($skew);
+
+.hello
+  .wrapper
+    font-size 42 * $px
+    h1
+      color $color_highlight
+      font-size 5.2em
+      line-height 0.7em
+      margin-bottom 0.7em
+      font-family 'Bangers'
+      background-color $color_shadow
+      text-shadow 12 * $px 12 * $px 0 $color_shadow, -3 * $px -3 * $px 0 $color_shadow, 3 * $px -3 * $px 0 $color_shadow, -3 * $px 3 * $px 0 $color_shadow, 3 * $px 3 * $px 0 $color_shadow
+    h3, h4
+      font-family 'Indie Flower'
+      margin 1em 0
+
+.prev, .next
+  background-color $color_shadow
+  raised()
+  font-size $type_wrapper_font_size
+  display inline-box
+  position absolute
+  left 50%
+  width 80 * $px
+  margin-left -40 * $px
+
+.prev
+  padding-bottom 8 * $px
+  padding-top 25 * $px
+  top 0
+  &:before
+    position absolute
+    bottom 35 * $px
+    content ' '
+    border-left 20 * $px solid transparent
+    border-right 20 * $px solid transparent
+    border-bottom 20 * $px solid $color_link_default
+
+.next
+  padding-top 8 * $px
+  padding-bottom 25 * $px
+  bottom 0
+  &:before
+    position absolute
+    top 35 * $px
+    content ' '
+    border-left 20 * $px solid transparent
+    border-right 20 * $px solid transparent
+    border-top 20 * $px solid $color_link_default
+
+.tools
+  .wrapper
+    ul li
+      height 140 * $px
+
+.contact
+  .wrapper
+    ul li
+      height 140 * $px
+      a
+        color black
+
+$query_01 = '(max-width: ' + $layout_site_width * $px + ')'
+
+@media $query_01
+  h_tags(0.9)
+  .wrapper > ul > li
+    $spacing = 0.25%
+    width 32.8%
+    &:nth-child(2n + 1)
+      background $color_highlight
+    &:nth-child(2n + 2)
+      background $color_link_default
+    &:nth-child(4n + 5)
+      clear none
+    &:nth-child(3n + 4)
+      clear left
+    &:nth-child(3n + 1)
+      margin-top 3 * $spacing
+    &:nth-child(3n + 2)
+      margin-top 2 * $spacing
+    &:nth-child(3n + 3)
+      margin-top 1 * $spacing
+
+$query_02 = '(max-width: ' + 1000 * $px + ')'
+
+@media $query_02
+  h_tags(0.8)
+
+$query_03 = '(max-width: ' + 800 * $px + ')'
+
+@media $query_03
+  h_tags(0.7)
+  .hello
+    .wrapper
+      font-size 36 * $px
+  
+  .wrapper > ul > li
+    width 49.5%
+    &:nth-child(4n + 1), &:nth-child(4n + 4)
+      background $color_highlight
+    &:nth-child(4n + 2), &:nth-child(4n + 3)
+      background $color_link_default
+    &:nth-child(3n + 4)
+      clear none
+    &:nth-child(2n + 3)
+      clear left
+
+$query_04 = '(max-width: ' + 500 * $px + ')'
+
+@media $query_04
+  .hello
+    .wrapper
+      font-size 24 * $px
+  h_tags(0.6)
+  .wrapper > ul > li
+    height auto
+    width 99.5%
+    margin 0.25% !important
+    &:nth-child(2n + 1)
+      background $color_highlight
+    &:nth-child(2n + 2)
+      background $color_link_default

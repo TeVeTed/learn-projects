@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Static Site With Prepros
+    </title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Bangers|Indie+Flower" rel="stylesheet" type="text/css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="js/site.min.js"></script>
+    <script type="text/coffeescript">
+      <w>= Math.max document.documentElement.clientWidth, window.innerWidth or 0</w>
+      <new>WOW().init() if w > 1200</new>
+    </script>
+  </head>
+  <body>
+    <div class="pane hello" id="section01">
+      <div class="wrapper">
+        <h1 class="wow slideInDown" data-wow-duration="1s">Hello</h1>
+        <h3 class="wow slideInRight" data-wow-duration="1s" data-wow-delay="1s">I'm Your Name</h3>
+        <h4 class="wow slideInLeft" data-wow-duration="1s" data-wow-delay="2s">This is What I Do</h4><a class="next wow bounceInUp" href="#section02" data-wow-delay="3s">NEXT</a>
+      </div>
+    </div>
+    <div class="pane skills" id="section02">
+      <div class="wrapper"><a class="prev" href="#section01">PREV</a>
+                <h1 class="wow fadeIn">My Skills Are...
+                </h1>
+        <ul>
+                  <li class="wow fadeIn" data-wow-duration="0.25s" data-wow-delay="NaNs">
+                    <h3>Skill One</h3>
+                    <ul>
+                      <li>+</li>
+                      <li>Extra Info</li>
+                      <li>More Info</li>
+                    </ul>
+                  </li>
+                  <li class="wow fadeIn" data-wow-duration="0.25s" data-wow-delay="NaNs">
+                    <h3>Skill Two</h3>
+                    <ul>
+                      <li>+</li>
+                      <li>Extra Info</li>
+                      <li>More Info</li>
+                    </ul>
+                  </li>
+                  <li class="wow fadeIn" data-wow-duration="0.25s" data-wow-delay="NaNs">
+                    <h3>Skill Three</h3>
+                    <ul>
+                      <li>+</li>
+                      <li>Extra Info</li>
+                      <li>More Info</li>
+                    </ul>
+                  </li>
+                  <li class="wow fadeIn" data-wow-duration="0.25s" data-wow-delay="NaNs">
+                    <h3>Skill Four</h3>
+                    <ul>
+                      <li>+</li>
+                      <li>Extra Info</li>
+                      <li>More Info</li>
+                    </ul>
+                  </li>
+        </ul><a class="next wow bounceInUp" href="#section03" data-wow-delay="NaNs">NEXT</a>
+      </div>
+    </div>
+    <div class="pane systems" id="section03">
+      <div class="wrapper"><a class="prev" href="#section02">PREV</a>
+                <h1 class="wow fadeIn">I Work With These Systems
+                </h1>
+        <ul>
+                  <li class="wow fadeIn" data-wow-duration="0.25s" data-wow-delay="NaNs">
+                    <h3>This CMS</h3>
+                    <ul>
+                      <li>More info here</li>
+                    </ul>
+                  </li>
+                  <li class="wow fadeIn" data-wow-duration="0.25s" data-wow-delay="NaNs">
+                    <h3>That Engine</h3>
+                    <ul>
+                      <li>More info here</li>
+                    </ul>
+                  </li>
+                  <li class="wow fadeIn" data-wow-duration="0.25s" data-wow-delay="NaNs">
+                    <h3>This System</h3>
+                    <ul>
+                      <li>More info here</li>
+                    </ul>
+                  </li>
+                  <li class="wow fadeIn" data-wow-duration="0.25s" data-wow-delay="NaNs">
+                    <h3>That System</h3>
+                    <ul>
+                      <li>More info here</li>
+                    </ul>
+                  </li>
+        </ul><a class="next wow bounceInUp" href="#section04" data-wow-delay="NaNs">NEXT</a>
+      </div>
+    </div>
+    <div class="pane types" id="section04">
+      <div class="wrapper"><a class="prev" href="#section03">PREV</a>
+                <h1 class="wow fadeIn">I create these types of projects
+                </h1>
+        <ul>
+                  <li class="wow fadeIn" data-wow-duration="0.25s" data-wow-delay="NaNs">
+                    <h3>Project Type</h3>
+                    <ul>
+                      <li>More info</li>
+                    </ul>
+                  </li>
+                  <li class="wow fadeIn" data-wow-duration="0.25s" data-wow-delay="NaNs">
+                    <h3>Project Type</h3>
+                    <ul>
+                      <li>More info</li>
+                    </ul>
+                  </li>
+                  <li class="wow fadeIn" data-wow-duration="0.25s" data-wow-delay="NaNs">
+                    <h3>Project Type</h3>
+                    <ul>
+                      <li>More info</li>
+                    </ul>
+                  </li>
+                  <li class="wow fadeIn" data-wow-duration="0.25s" data-wow-delay="NaNs">
+                    <h3>Project Type</h3>
+                    <ul>
+                      <li>More info</li>
+                    </ul>
+                  </li>
+        </ul><a class="next wow bounceInUp" href="#section05" data-wow-delay="NaNs">NEXT</a>
+      </div>
+    </div>
+    <div class="pane tools" id="section05">
+      <div class="wrapper"><a class="prev" href="#section04">PREV</a>
+                <h1 class="wow fadeIn">I work with these tools
+                </h1>
+        <ul>
+                  <li class="wow fadeIn" data-wow-duration="0.25s" data-wow-delay="NaNs">
+                    <h3>Tool Name</h3>
+                  </li>
+                  <li class="wow fadeIn" data-wow-duration="0.25s" data-wow-delay="NaNs">
+                    <h3>Tool Name</h3>
+                  </li>
+                  <li class="wow fadeIn" data-wow-duration="0.25s" data-wow-delay="NaNs">
+                    <h3>Tool Name</h3>
+                  </li>
+                  <li class="wow fadeIn" data-wow-duration="0.25s" data-wow-delay="NaNs">
+                    <h3>Tool Name</h3>
+                  </li>
+                  <li class="wow fadeIn" data-wow-duration="0.25s" data-wow-delay="NaNs">
+                    <h3>Tool Name</h3>
+                  </li>
+                  <li class="wow fadeIn" data-wow-duration="0.25s" data-wow-delay="NaNs">
+                    <h3>Tool Name</h3>
+                  </li>
+                  <li class="wow fadeIn" data-wow-duration="0.25s" data-wow-delay="NaNs">
+                    <h3>Tool Name</h3>
+                  </li>
+                  <li class="wow fadeIn" data-wow-duration="0.25s" data-wow-delay="NaNs">
+                    <h3>Tool Name</h3>
+                  </li>
+                  <li class="wow fadeIn" data-wow-duration="0.25s" data-wow-delay="NaNs">
+                    <h3>Tool Name</h3>
+                  </li>
+                  <li class="wow fadeIn" data-wow-duration="0.25s" data-wow-delay="NaNs">
+                    <h3>Tool Name</h3>
+                  </li>
+                  <li class="wow fadeIn" data-wow-duration="0.25s" data-wow-delay="NaNs">
+                    <h3>Tool Name</h3>
+                  </li>
+                  <li class="wow fadeIn" data-wow-duration="0.25s" data-wow-delay="NaNs">
+                    <h3>Tool Name</h3>
+                  </li>
+        </ul><a class="next wow bounceInUp" href="#section06" data-wow-delay="NaNs">NEXT</a>
+      </div>
+    </div>
+    <div class="pane contact" id="section06">
+      <div class="wrapper"><a class="prev" href="#section05">PREV</a>
+                <h1 class="wow fadeIn">CONTACT ME<br>Via These
+                </h1>
+        <ul>
+                  <li class="wow fadeIn" data-wow-duration="0.25s" data-wow-delay="NaNs">
+                    <h3> <a href="http://&lt;sociallink&gt;">Social</a></h3>
+                  </li>
+                  <li class="wow fadeIn" data-wow-duration="0.25s" data-wow-delay="NaNs">
+                    <h3><a href="http://&lt;sociallink&gt;">Social</a></h3>
+                  </li>
+                  <li class="wow fadeIn" data-wow-duration="0.25s" data-wow-delay="NaNs">
+                    <h3><a href="http://&lt;sociallink&gt;">Social</a></h3>
+                  </li>
+                  <li class="wow fadeIn" data-wow-duration="0.25s" data-wow-delay="NaNs">
+                    <h3><a href="http://&lt;sociallink&gt;">Social</a></h3>
+                  </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>

@@ -11,7 +11,10 @@ export function forbiddenWordsMiddleware({ dispatch }) {
           );
 
           if (foundWord.length) {
-            return dispatch({ type: 'FOUND_BAD_WORD' });
+            return dispatch({
+              type: 'FOUND_BAD_WORD',
+              word: foundWord[0]
+            });
           }
       }
       return next(action);

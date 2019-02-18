@@ -1,0 +1,34 @@
+extends templates/wrapper.jade
+
+block title
+  | Static Site With Prepros
+
+block content
+  #section01.pane.hello
+    .wrapper
+      include content/hello.jade
+      a( class='next wow bounceInUp', href='#section02', data-wow-delay='3s' ) NEXT
+  #section02.pane.skills
+    .wrapper
+      a( class='prev' href='#section01' ) PREV
+      include content/skills.jade
+      a( class='next wow bounceInUp' href='#section03' data-wow-delay=( delay -= stagger ) + 's' ) NEXT
+  #section03.pane.systems
+    .wrapper
+      a( class='prev' href='#section02' ) PREV
+      include content/systems.jade
+      a( class='next wow bounceInUp' href='#section04' data-wow-delay=( delay -= stagger ) + 's' ) NEXT
+  #section04.pane.types
+    .wrapper
+      a( class='prev' href='#section03' ) PREV
+      include content/types.jade
+      a( class='next wow bounceInUp' href='#section05' data-wow-delay=( delay -= stagger ) + 's' ) NEXT
+  #section05.pane.tools
+    .wrapper
+      a( class='prev' href='#section04' ) PREV
+      include content/tools.jade
+      a( class='next wow bounceInUp' href='#section06' data-wow-delay=( delay -= stagger ) + 's' ) NEXT
+  #section06.pane.contact
+    .wrapper
+      a( class='prev' href='#section05' ) PREV
+      include content/contact.jade

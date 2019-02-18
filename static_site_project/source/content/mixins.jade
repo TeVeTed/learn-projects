@@ -1,0 +1,11 @@
+- var duration = '0.25s'
+- var delay = 0.75
+- var stragger = 0.25
+
+mixin showSquare()
+  li.wow.fadeIn( data-wow-duration=duration, data-wow-delay=( delay += stagger ) + 's' )
+    block
+
+mixin panelHead()
+  h1.wow.fadeIn
+    block
