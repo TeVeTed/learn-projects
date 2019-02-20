@@ -1,6 +1,8 @@
-import { DATA_LOADED } from '../constants/action-types';
+import { DATA_LOADED, SELECT_PRIORITIES } from '../constants/action-types';
 
-let lastReturnedDayMilliseconds;
+let
+  lastReturnedDayMilliseconds,
+  moreClickCounter = 0;
 
 function getPreviousDay(previous) {
   const
@@ -15,15 +17,18 @@ function getPreviousDay(previous) {
 }
 
 function formRequest(keyword, lang, amount, addLoad) {
-  const day = getPreviousDay(addLoad);
-  return 'https://newsapi.org/v2/everything?' +
-    `q=${keyword}&` +
-    'sources=the-new-york-times&' +
-    `language=${lang}&` +
-    `from=${day}&` +
-    `to=${day}&` +
-    `pageSize=${amount}&` +
-    'apiKey=06629c8bc17b48ce8e6829abec827a3a';
+  const
+    day = getPreviousDay(addLoad),
+    url = 'https://newsapi.org/v2/everything?' +
+      `q=${keyword}&` +
+      'sources=the-new-york-times&' +
+      `language=${lang}&` +
+      `from=${day}&` +
+      `to=${day}&` +
+      `pageSize=${amount}&` +
+      'apiKey=06629c8bc17b48ce8e6829abec827a3a';
+
+  return new Request(url);
 }
 
 function generatePriority(min, max) {
@@ -32,32 +37,54 @@ function generatePriority(min, max) {
 }
 
 export function getData() {
-  const req = new Request(formRequest('IT', 'en', '10', false));
   return function(dispatch) {
-    return fetch(req)
+    return fetch(formRequest('IT', 'en', '10', false))
       .then(response => response.json())
       .then(json => {
-        json.articles.map(item => {
+        const priorities = {};
+
+        json.articles.map((item, i) => {
           item.priority = generatePriority(1, 5);
+          
+          if (!priorities[item.priority]) {
+            priorities[item.priority] = [i];
+          } else {
+            priorities[item.priority].push(i);
+          }
+
           return item;
         });
         dispatch({ type: DATA_LOADED, payload: json.articles });
+        dispatch({ type: SELECT_PRIORITIES, payload: priorities });
       }
     );
   };
 }
 
 export function addNews() {
-  const req = new Request(formRequest('IT', 'en', '5', true));
   return function(dispatch) {
-    return fetch(req)
+    return fetch(formRequest('IT', 'en', '5', true))
       .then(response => response.json())
       .then(json => {
-        json.articles.map(item => {
+        const
+          priorities = {},
+          increaseIndex = moreClickCounter ? (10 + 5 * moreClickCounter) : 10;
+
+        json.articles.map((item, i) => {
           item.priority = generatePriority(1, 5);
+          
+          if (!priorities[item.priority]) {
+            priorities[item.priority] = [i + increaseIndex];
+          } else {
+            priorities[item.priority].push(i + increaseIndex);
+          }
+
           return item;
         });
+        moreClickCounter++;
+
         dispatch({ type: DATA_LOADED, payload: json.articles });
+        dispatch({ type: SELECT_PRIORITIES, payload: priorities });
       }
     );
   };

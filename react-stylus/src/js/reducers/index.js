@@ -1,14 +1,30 @@
-import { DATA_LOADED } from '../constants/action-types';
+import { DATA_LOADED, SELECT_PRIORITIES } from '../constants/action-types';
 
 const initialState = {
-    remoteNews: []
+    remoteNews: [],
+    priorities: {}
 };
 
 function rootReducer(state = initialState, action) {
-    if (action.type === DATA_LOADED) {
-        return Object.assign({}, state, {
-            remoteNews: state.remoteNews.concat(action.payload)
-        });
+    switch (action.type) {
+        case DATA_LOADED:
+            return Object.assign({}, state, {
+                remoteNews: state.remoteNews.concat(action.payload)
+            });
+        case SELECT_PRIORITIES:
+            const stateCopy = Object.assign({}, state.priorities);
+            for (let key in action.payload) {
+                if(stateCopy[key]) {
+                    stateCopy[key] = stateCopy[key].concat(action.payload[key]);
+                } else {
+                    stateCopy[key] = action.payload[key];
+                }
+            }
+            return Object.assign({}, state, {
+                priorities: Object.assign({}, state.priorities, stateCopy)
+            });
+        default:
+            break;
     }
     return state;
 }

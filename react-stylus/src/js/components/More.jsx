@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Button } from 'reactstrap';
 
 import { addNews } from '../actions/index';
 
@@ -21,7 +20,7 @@ class MoreNews extends React.Component {
 	}
 
 	render() {
-		return <Button color='danger' onClick={this.handleClick}>More!</Button>;
+		return <button onClick={this.handleClick}>More!</button>;
 	}
 }
 

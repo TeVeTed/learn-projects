@@ -1,6 +1,7 @@
 import React from 'react';
 import Feed from './Feed.jsx';
 import More from './More.jsx';
+import Filter from './Filter.jsx';
 
 class App extends React.Component {
   render() {
@@ -8,6 +9,7 @@ class App extends React.Component {
       <div className="App">
         <Feed />
         <More />
+        <Filter />
       </div>
     );
   }

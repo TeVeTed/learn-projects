@@ -1,1 +1,2 @@
 export const DATA_LOADED = 'DATA_LOADED';
+export const SELECT_PRIORITIES = 'SELECT_PRIORITIES';
