@@ -5,12 +5,12 @@ import { changePriority } from "../actions/index";
 function mapDispatchToProps(dispatch) {
   return {
     changePriority: priority => dispatch(changePriority(priority))
-  }
+  };
 }
 
 const handleClick = context => {
   context.setState({ priorityChanging: !context.state.priorityChanging });
-}
+};
 
 const handleBlur = (event, context) => {
   if (event.target.value !== context.props.value.priority.toString()) {
@@ -21,7 +21,7 @@ const handleBlur = (event, context) => {
     });
   }
   context.setState({ priorityChanging: !context.state.priorityChanging });
-}
+};
 
 function Span(context) {
   return (
