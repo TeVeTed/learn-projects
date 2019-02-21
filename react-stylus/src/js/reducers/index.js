@@ -1,8 +1,15 @@
-import { DATA_LOADED, SELECT_PRIORITIES } from '../constants/action-types';
+import {
+    DATA_LOADED,
+    SELECT_PRIORITIES,
+    FILTER_PRIORITIES,
+    CHANGE_PRIORITY
+} from '../constants/action-types';
 
 const initialState = {
     remoteNews: [],
-    priorities: {}
+    priorities: {},
+    filteredPriorities: [],
+    updateFilters: false
 };
 
 function rootReducer(state = initialState, action) {
@@ -22,6 +29,30 @@ function rootReducer(state = initialState, action) {
             }
             return Object.assign({}, state, {
                 priorities: Object.assign({}, state.priorities, stateCopy)
+            });
+        case FILTER_PRIORITIES:
+            return Object.assign({}, state, {
+                filteredPriorities: action.payload
+            });
+        case CHANGE_PRIORITY:
+            let prioritiesCopy = state.priorities;
+            const newsCopy = state.remoteNews;
+
+            newsCopy[action.payload.id].priority = action.payload.newPriority;
+            
+            prioritiesCopy[action.payload.oldPriority] = prioritiesCopy[action.payload.oldPriority]
+                .filter(item => item !== action.payload.id);
+
+            if (!prioritiesCopy[action.payload.oldPriority].length) delete prioritiesCopy[action.payload.oldPriority];
+            if (!prioritiesCopy[action.payload.newPriority]) prioritiesCopy[action.payload.newPriority] = [];
+            
+            prioritiesCopy[action.payload.newPriority].push(action.payload.id);
+            prioritiesCopy[action.payload.newPriority].sort((a, b) => a - b);
+            
+            return Object.assign({}, state, {
+                remoteNews: newsCopy,
+                priorities: prioritiesCopy,
+                updateFilters: !state.updateFilters
             });
         default:
             break;

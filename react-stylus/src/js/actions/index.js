@@ -1,4 +1,9 @@
-import { DATA_LOADED, SELECT_PRIORITIES } from '../constants/action-types';
+import {
+  DATA_LOADED,
+  SELECT_PRIORITIES,
+  FILTER_PRIORITIES,
+  CHANGE_PRIORITY
+} from '../constants/action-types';
 
 let
   lastReturnedDayMilliseconds,
@@ -23,7 +28,7 @@ function formRequest(keyword, lang, amount, addLoad) {
       `q=${keyword}&` +
       'sources=the-new-york-times&' +
       `language=${lang}&` +
-      `from=${day}&` +
+      `from=2019-02-20&` +
       `to=${day}&` +
       `pageSize=${amount}&` +
       'apiKey=06629c8bc17b48ce8e6829abec827a3a';
@@ -56,6 +61,7 @@ export function getData() {
         });
         dispatch({ type: DATA_LOADED, payload: json.articles });
         dispatch({ type: SELECT_PRIORITIES, payload: priorities });
+        dispatch({ type: FILTER_PRIORITIES, payload: Object.keys(priorities) });
       }
     );
   };
@@ -88,4 +94,12 @@ export function addNews() {
       }
     );
   };
+}
+
+export function filteredPriorities(payload) {
+  return { type: FILTER_PRIORITIES, payload };
+}
+
+export function changePriority(payload) {
+  return { type: CHANGE_PRIORITY, payload };
 }
