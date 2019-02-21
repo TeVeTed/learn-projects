@@ -30,7 +30,7 @@ export class Feed extends React.Component {
       <Post key={index} value={post} id={index} />
     );
     return (
-      <div className="feed">
+      <div className='news-list'>
         {posts}
       </div>
     );

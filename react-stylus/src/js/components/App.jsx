@@ -6,9 +6,16 @@ import Filter from './Filter.jsx';
 class App extends React.Component {
   render() {
     return (
-      <div className="App">
-        <Feed />
-        <More />
+      <div className='feed-sec'>
+        <div className="block-wrapper">
+          <h1 className="sec-title big-title">News feed</h1>
+          <div className="horizontal-block">
+            <div className="block-column btn-sec">
+              <Feed />
+              <More />
+            </div>
+          </div>
+        </div>
         <Filter />
       </div>
     );

@@ -28,7 +28,7 @@ function formRequest(keyword, lang, amount, addLoad) {
       `q=${keyword}&` +
       'sources=the-new-york-times&' +
       `language=${lang}&` +
-      `from=2019-02-20&` +
+      `from=${day}&` +
       `to=${day}&` +
       `pageSize=${amount}&` +
       'apiKey=06629c8bc17b48ce8e6829abec827a3a';

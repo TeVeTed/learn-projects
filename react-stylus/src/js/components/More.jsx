@@ -20,7 +20,7 @@ class MoreNews extends React.Component {
 	}
 
 	render() {
-		return <button onClick={this.handleClick}>More!</button>;
+		return <button onClick={this.handleClick} className='button more-btn'>Load more news</button>;
 	}
 }
 

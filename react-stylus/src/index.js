@@ -6,7 +6,6 @@ import store from './js/store/index';
 
 import App from './js/components/App.jsx';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
 import './assets/styles/main.css';
 
 ReactDOM.render(

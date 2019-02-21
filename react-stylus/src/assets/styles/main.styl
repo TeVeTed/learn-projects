@@ -1,16 +1,179 @@
-// #root
-//   margin 1em auto
-//   width 650px
+*
+	margin 0
+	padding 0
+	box-sizing border-box
+	text-decoration none
+	font-family sans-serif
+	font-size 14px
 
-// .post
-//   background #FFFFFF
-//   padding 20px
-//   margin 10px 0 10px 0
-//   box-shadow 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.10)
+.big-title
+	font-size 36px
 
-// .post-form
-//   background #90caf9
-//   padding 20px
+.small-title
+	font-size 24px
 
-// .content
-//   margin-left 5px
+.big-title, .middle-title, .small-title
+	line-height 1.1
+	margin-bottom 15px
+	font-weight 500
+
+.block-wrapper
+	padding-right 15px
+	padding-left 15px
+	margin-right auto
+	margin-left auto
+
+	.sec-title
+		font-weight 900
+		text-align center
+		margin-top 45px
+		margin-bottom 0
+		color #333333
+	
+	.horizontal-block
+		margin-right -15px
+		margin-left -15px
+
+		.btn-sec 
+			display flex
+			flex-direction column
+
+	.block-column
+		width 100%
+		position relative
+		min-height 1px
+		padding-right 15px
+		padding-left 15px
+
+		.news-list
+			padding-bottom 60px
+
+			.news-item
+				margin-top 20px
+				display flex
+				flex-direction column
+				align-items center
+				justify-content space-around
+				margin-right 20px
+
+				.news-item-img
+					background-color #27AE60
+					height 280px
+
+					.img-item
+						opacity 0.2
+
+				.news-item-bg
+					position absolute
+					color white
+					width 280px
+					padding 0 15px
+
+					.title
+						text-align center
+						font-weight 900
+
+					.desc
+						color #FFFFFF
+						text-align center
+						margin-bottom 0
+						font-size 14px
+						line-height 1.42857143
+						color #333333
+
+						.button
+							margin-top 5px
+							border 1px solid white
+
+						.priority-list
+							margin-bottom 2px
+
+						.priority-radio
+							display inline
+
+							.checkbox-container
+								position relative
+								cursor pointer
+								-webkit-user-select none
+								-moz-user-select none
+								-ms-user-select none
+								user-select none
+
+								.label-title
+									padding-right 25px
+									font-size 18px
+									padding-left 20px
+									margin-bottom 12px
+									color white
+
+								.checkbox-button
+									position absolute
+									opacity 0
+									cursor pointer
+
+									&:checked ~ .checkmark
+										background-color white
+
+										&:after
+											display block
+
+								.checkmark
+									position absolute
+									top -1px
+									left 0
+									height 15px
+									width 15px
+									background-color #eee
+									border-radius 50%
+
+									&:after
+										content ""
+										position absolute
+										display none
+										top 4px
+										left 4px
+										width 8px
+										height 8px
+										border-radius 50%
+										background black
+
+								&:hover
+									.checkbox-button ~ .checkmark
+										background-color #ccc
+
+		.button
+			line-height 1.42857143
+			cursor pointer
+			background-image none
+			background-color #27ae61
+			border-radius 50px
+			font-size 24px
+			padding 6px 17px
+			color #FFFFFF
+			border 1px solid transparent
+
+@media screen and (min-width 375px)
+	.block-wrapper
+		.block-column
+			.news-list
+				display flex
+				flex-wrap wrap
+				justify-content space-around
+
+@media screen and (min-width 630px)
+	.block-wrapper
+		width 750px
+
+@media screen and (min-width 1024px)
+	.block-wrapper
+		width 970px
+	
+	.news-list
+		display flex
+		flex-wrap wrap
+		justify-content space-around
+		padding-left 21px
+
+@media screen and (min-width 1200px)
+	.block-wrapper
+		width 1170px
