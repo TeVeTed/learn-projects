@@ -6,6 +6,7 @@ import store from './js/store/index';
 
 import App from './js/components/App.jsx';
 
+import './assets/styles/vendors/fontawesome/css/all.min.css';
 import './assets/styles/main.css';
 
 ReactDOM.render(

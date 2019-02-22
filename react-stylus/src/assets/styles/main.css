@@ -6,6 +6,97 @@
   font-family: sans-serif;
   font-size: 14px;
 }
+#filter-checker {
+  display: none;
+}
+#filter-checker:checked + .filter-block {
+  left: 0px;
+  z-index: 1;
+}
+#filter-checker:checked + .filter-block .visible-arrow {
+  border-right: none;
+  border-left: 1px solid #000;
+  transform: rotate(180deg);
+}
+.filter-block {
+  position: fixed;
+  left: -232px;
+}
+.filter-block .visible-arrow {
+  vertical-align: top;
+  border: 1px solid #000;
+  border-left: none;
+  float: right;
+  width: 45px;
+  text-align: center;
+  background-color: #fff;
+}
+.filter-block .visible-arrow .arrow-label {
+  display: block;
+  cursor: pointer;
+}
+.filter-block .visible-arrow .arrow-label .toggle-filters {
+  font-size: 44px;
+}
+.filter-block .filter-container {
+  border: 1px solid #000;
+  padding: 15px 30px 0 30px;
+  display: inline-block;
+  background-color: #fff;
+}
+.filter-block .filter-container .filter-list {
+  list-style-type: none;
+}
+.filter-block .filter-container .filter-list .checkbox-container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.filter-block .filter-container .filter-list .checkbox-container:hover .checkbox-hidden ~ .checkmark {
+  background-color: #ccc;
+}
+.filter-block .filter-container .filter-list .checkbox-container .checkbox-hidden {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+.filter-block .filter-container .filter-list .checkbox-container .checkbox-hidden:checked ~ .checkmark {
+  background-color: #27ae60;
+}
+.filter-block .filter-container .filter-list .checkbox-container .checkbox-hidden:checked ~ .checkmark:after {
+  display: block;
+}
+.filter-block .filter-container .filter-list .checkbox-container .checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+.filter-block .filter-container .filter-list .checkbox-container .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid #fff;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
 .big-title {
   font-size: 36px;
 }
@@ -47,6 +138,18 @@
   padding-right: 15px;
   padding-left: 15px;
 }
+.block-wrapper .block-column .button {
+  line-height: 1.42857143;
+  cursor: pointer;
+  background-image: none;
+  background-color: #27ae61;
+  border-radius: 50px;
+  font-size: 24px;
+  padding: 6px 17px;
+  color: #fff;
+  border: 1px solid transparent;
+  margin-bottom: 15px;
+}
 .block-wrapper .block-column .news-list {
   padding-bottom: 60px;
 }
@@ -75,6 +178,10 @@
   text-align: center;
   font-weight: 900;
 }
+.block-wrapper .block-column .news-list .news-item .news-item-bg .title .title-link {
+  color: inherit;
+  font-size: inherit;
+}
 .block-wrapper .block-column .news-list .news-item .news-item-bg .desc {
   color: #fff;
   text-align: center;
@@ -86,6 +193,7 @@
 .block-wrapper .block-column .news-list .news-item .news-item-bg .desc .button {
   margin-top: 5px;
   border: 1px solid #fff;
+  font-size: 14px;
 }
 .block-wrapper .block-column .news-list .news-item .news-item-bg .desc .priority-list {
   margin-bottom: 2px;
@@ -123,8 +231,8 @@
   position: absolute;
   top: -1px;
   left: 0;
-  height: 15px;
-  width: 15px;
+  height: 16px;
+  width: 16px;
   background-color: #eee;
   border-radius: 50%;
 }
@@ -141,17 +249,6 @@
 }
 .block-wrapper .block-column .news-list .news-item .news-item-bg .desc .priority-radio .checkbox-container:hover .checkbox-button ~ .checkmark {
   background-color: #ccc;
-}
-.block-wrapper .block-column .button {
-  line-height: 1.42857143;
-  cursor: pointer;
-  background-image: none;
-  background-color: #27ae61;
-  border-radius: 50px;
-  font-size: 24px;
-  padding: 6px 17px;
-  color: #fff;
-  border: 1px solid transparent;
 }
 @media screen and (min-width: 375px) {
   .block-wrapper .block-column .news-list {

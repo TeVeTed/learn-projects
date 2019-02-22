@@ -57,7 +57,7 @@ function Select(context) {
           id={'articlePriority' + i}
           className='checkbox-button'
         />
-        <span class="checkmark"></span>
+        <span className="checkmark"></span>
       </label>
     </li>);
   }
@@ -87,7 +87,15 @@ class ConnectedPost extends React.Component {
           <img src={this.props.value.urlToImage} alt='' width='280' height='280' className='img-item' />
         </div>
         <div className="news-item-bg">
-          <h3 className="title small-title">{this.props.value.title}</h3>
+          <h3 className="title small-title">
+            <a className="title-link"
+              href={this.props.value.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {this.props.value.title}
+              </a>
+          </h3>
           <div className="desc">
             {this.state.priorityChanging ? Select(this) : Button(this)}
           </div>

@@ -7,6 +7,7 @@ class App extends React.Component {
   render() {
     return (
       <div className='feed-sec'>
+        <Filter />
         <div className="block-wrapper">
           <h1 className="sec-title big-title">News feed</h1>
           <div className="horizontal-block">
@@ -16,7 +17,6 @@ class App extends React.Component {
             </div>
           </div>
         </div>
-        <Filter />
       </div>
     );
   }

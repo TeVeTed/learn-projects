@@ -34,15 +34,17 @@ class Filter extends React.Component {
       priorArr = Object.keys(this.props.priorities),
       listItems = priorArr.map((item, i) => {
         return (
-          <li key={i}>
-            <input
-              type="checkbox"
-              name='priority'
-              id={"checkbox" + item}
-              value={item}
-              defaultChecked />
-            <label htmlFor={"checkbox" + item}>
-              {item} ({this.props.priorities[item].length})
+          <li key={i} className="filter-list-item">
+            <label className='checkbox-container'> {item} ({this.props.priorities[item].length})
+              <input
+                type="checkbox"
+                name='priority'
+                id={"checkbox" + item}
+                value={item}
+                className="checkbox-hidden"
+                defaultChecked
+              />
+              <span className="checkmark"></span>
             </label>
           </li>
         );
@@ -51,19 +53,33 @@ class Filter extends React.Component {
         return prev + this.props.priorities[cur].length;
       }, 0);
     return (
-      <div>
-        <form onChange={this.handleChange}>
-          <ul>
-            <li>
-              <input
-                type="checkbox"
-                id="checkbox0"
-                defaultChecked />
-              <label htmlFor="checkbox0">Select all ({totalArticles})</label>
-            </li>
-            {listItems}
-          </ul>
-        </form>
+      <div className="filter-wrapper">
+        <input type="checkbox" id="filter-checker"/>
+        <div className="filter-block">
+          <div className="visible-arrow" title="Toggle filters block">
+            <label htmlFor='filter-checker' className='arrow-label'>
+              <i className="fas fa-angle-right toggle-filters"></i>
+            </label>
+          </div>
+          <div className="filter-container">
+            <form onChange={this.handleChange} className="filter-form">
+              <ul className="filter-list">
+                <li className="filter-list-item">
+                  <label className='checkbox-container'>Select all ({totalArticles})
+                  <input
+                      type="checkbox"
+                      id="checkbox0"
+                      className="checkbox-hidden"
+                      defaultChecked
+                  />
+                  <span className="checkmark"></span>
+                  </label>
+                </li>
+                {listItems}
+              </ul>
+            </form>
+          </div>
+        </div>
       </div>
     );
   }
