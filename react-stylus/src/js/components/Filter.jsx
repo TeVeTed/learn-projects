@@ -52,6 +52,7 @@ class Filter extends React.Component {
       totalArticles = priorArr.reduce((prev, cur, i, arr) => {
         return prev + this.props.priorities[cur].length;
       }, 0);
+      
     return (
       <div className="filter-wrapper">
         <input type="checkbox" id="filter-checker"/>

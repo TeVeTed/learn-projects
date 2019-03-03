@@ -5,6 +5,7 @@ import {
     CHANGE_PRIORITY
 } from '../constants/action-types';
 
+// Set a 'schema' for redux state
 const initialState = {
     remoteNews: [],
     priorities: {},
@@ -12,6 +13,7 @@ const initialState = {
     updateFilters: false
 };
 
+// Applying actions
 function rootReducer(state = initialState, action) {
     switch (action.type) {
         case DATA_LOADED:
@@ -38,8 +40,10 @@ function rootReducer(state = initialState, action) {
             let prioritiesCopy = state.priorities;
             const newsCopy = state.remoteNews;
 
+            // Update array with articles
             newsCopy[action.payload.id].priority = action.payload.newPriority;
             
+            // Update priorities for filters
             prioritiesCopy[action.payload.oldPriority] = prioritiesCopy[action.payload.oldPriority]
                 .filter(item => item !== action.payload.id);
 

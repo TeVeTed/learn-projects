@@ -9,7 +9,8 @@ let
   lastReturnedDayMilliseconds,
   moreClickCounter = 0;
 
-function getPreviousDay(previous) {
+// Get date (if need - date of previous day) for request
+  function getPreviousDay(previous) {
   const
     date = previous ? new Date(lastReturnedDayMilliseconds - 24 * 3600 * 1000) : new Date(),
     year = date.getFullYear(),
@@ -21,6 +22,7 @@ function getPreviousDay(previous) {
   return `${year}-${month}-${day}`;
 }
 
+// Make request for fetching
 function formRequest(keyword, lang, amount, addLoad) {
   const
     day = getPreviousDay(addLoad),
@@ -28,7 +30,7 @@ function formRequest(keyword, lang, amount, addLoad) {
       `q=${keyword}&` +
       'sources=the-new-york-times&' +
       `language=${lang}&` +
-      `from=2019-02-21&` +
+      `from=${day}&` +
       `to=${day}&` +
       `pageSize=${amount}&` +
       'apiKey=06629c8bc17b48ce8e6829abec827a3a';
@@ -36,11 +38,14 @@ function formRequest(keyword, lang, amount, addLoad) {
   return new Request(url);
 }
 
+// Randomly set a priority value to an article
 function generatePriority(min, max) {
   let rand = min - 0.5 + Math.random() * (max - min + 1);
   return Math.round(rand);
 }
 
+
+// Fetching data from API for initial view on page
 export function getData() {
   return function(dispatch) {
     return fetch(formRequest('IT', 'en', '10', false))
@@ -49,8 +54,10 @@ export function getData() {
         const priorities = {};
 
         json.articles.map((item, i) => {
+          // Set priority
           item.priority = generatePriority(1, 5);
           
+          // Form an object of arrays, sorted by priority with article indexes
           if (!priorities[item.priority]) {
             priorities[item.priority] = [i];
           } else {
@@ -59,6 +66,8 @@ export function getData() {
 
           return item;
         });
+
+        // Call an actions from reducer
         dispatch({ type: DATA_LOADED, payload: json.articles });
         dispatch({ type: SELECT_PRIORITIES, payload: priorities });
         dispatch({ type: FILTER_PRIORITIES, payload: Object.keys(priorities) });
@@ -67,6 +76,7 @@ export function getData() {
   };
 }
 
+// Fetching data from API, adding new articles to list
 export function addNews() {
   return function(dispatch) {
     return fetch(formRequest('IT', 'en', '5', true))
@@ -74,11 +84,13 @@ export function addNews() {
       .then(json => {
         const
           priorities = {},
-          increaseIndex = moreClickCounter ? (10 + 5 * moreClickCounter) : 10;
+          increaseIndex = moreClickCounter ? (10 + 5 * moreClickCounter) : 10; // Modifiying indexes, which depends on day in request
 
         json.articles.map((item, i) => {
+          // Set priority
           item.priority = generatePriority(1, 5);
           
+          // Form an object of arrays, sorted by priority with article indexes
           if (!priorities[item.priority]) {
             priorities[item.priority] = [i + increaseIndex];
           } else {
@@ -89,6 +101,7 @@ export function addNews() {
         });
         moreClickCounter++;
 
+        // Call an actions from reducer
         dispatch({ type: DATA_LOADED, payload: json.articles });
         dispatch({ type: SELECT_PRIORITIES, payload: priorities });
       }
@@ -96,10 +109,12 @@ export function addNews() {
   };
 }
 
+// Update priorities that setted in filter block
 export function filteredPriorities(payload) {
   return { type: FILTER_PRIORITIES, payload };
 }
 
+// Update article priority with new value
 export function changePriority(payload) {
   return { type: CHANGE_PRIORITY, payload };
 }

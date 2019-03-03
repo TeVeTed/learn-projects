@@ -1,0 +1,95 @@
+// Prohibits text selection
+user-select(n)
+  -webkit-user-select n
+  -moz-user-select n
+  -ms-user-select n
+  user-select n
+
+#filter-checker
+	display none
+
+	&:checked + .filter-block
+		left 0px
+		z-index 1
+
+		.visible-arrow
+			border-right none
+			border-left 1px solid black
+			transform rotate(180deg)
+
+.filter-block
+	position fixed
+	left -232px
+
+	.visible-arrow
+		vertical-align top
+		border 1px solid black
+		border-left none
+		float right
+		width 45px
+		text-align center
+		background-color white
+
+		.arrow-label
+			display block
+			cursor pointer
+
+			.toggle-filters
+				font-size 44px
+
+	.filter-container
+		border 1px solid black
+		padding 15px 30px 0 30px
+		display inline-block
+		background-color white
+
+		.filter-list
+			list-style-type none
+
+			.checkbox-container
+				display block
+				position relative
+				padding-left 35px
+				margin-bottom 12px
+				cursor pointer
+				font-size 22px
+				user-select(none)
+
+				&:hover
+					.checkbox-hidden ~ .checkmark
+						background-color #ccc
+
+				.checkbox-hidden
+					position absolute
+					opacity 0
+					cursor pointer
+					height 0
+					width 0
+
+					&:checked ~ .checkmark
+						background-color #27ae60
+
+						&:after
+							display block
+
+				.checkmark
+					position absolute
+					top 0
+					left 0
+					height 25px
+					width 25px
+					background-color #eee
+
+					&:after
+						content ""
+						position absolute
+						display none
+						left 9px
+						top 5px
+						width 5px
+						height 10px
+						border solid white
+						border-width 0 3px 3px 0
+						-webkit-transform rotate(45deg)
+						-ms-transform rotate(45deg)
+						transform rotate(45deg)

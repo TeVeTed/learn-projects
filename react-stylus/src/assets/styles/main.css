@@ -267,9 +267,6 @@
     width: 970px;
   }
   .news-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
     padding-left: 21px;
   }
 }
