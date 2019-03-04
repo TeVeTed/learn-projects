@@ -1,13 +1,33 @@
 import React from 'react';
+import { object, bool } from 'prop-types';
+
 import { connect } from 'react-redux';
 import { filteredPriorities } from '../actions/index';
 
-class Filter extends React.Component {
-  constructor() {
-    super();
-    this.handleChange = this.handleChange.bind(this);
+function mapStateToProps(state) {
+  return {
+    priorities: state.priorities,
+    updateFilters: state.updateFilters
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    filteredPriorities: priorities => dispatch(filteredPriorities(priorities))
   }
-  handleChange(source) {
+}
+
+class Filter extends React.Component {
+  static propTypes = {
+    priorities: object.isRequired,
+    updateFilters: bool.isRequired
+  }
+
+  static defaultProps = {
+    updateFilters: false
+  }
+
+  handleChange = (source) => {
     const
       checkboxes = document.getElementsByName('priority'),
       checkboxesArr = Array.from(checkboxes),
@@ -83,19 +103,6 @@ class Filter extends React.Component {
         </div>
       </div>
     );
-  }
-}
-
-function mapStateToProps(state) {
-  return {
-    priorities: state.priorities,
-    updateFilters: state.updateFilters
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    filteredPriorities: priorities => dispatch(filteredPriorities(priorities))
   }
 }
 

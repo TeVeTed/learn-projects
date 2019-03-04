@@ -1,4 +1,6 @@
 import React from 'react';
+import { number, object } from 'prop-types';
+
 import { connect } from "react-redux";
 import { changePriority } from "../actions/index";
 
@@ -10,74 +12,81 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-const handleClick = context => {
-  context.setState({ priorityChanging: !context.state.priorityChanging });
-};
-
-const handleSubmit = (event, context) => {
-  event.preventDefault();
-  if (context.state.newPriority) {
-    context.props.changePriority({
-      id: context.props.id,
-      oldPriority: context.props.value.priority,
-      newPriority: Number(context.state.newPriority)
-    });
-    context.setState({ newPriority: null });
-  }
-  context.setState({ priorityChanging: !context.state.priorityChanging });
-};
-
-const handleChange = (event, context) => {
-  context.setState({ newPriority: event.target.value });
-};
-
-function Button(context) {
-  return (
-    <button className='button' onClick={() => handleClick(context)}>
-      Change priority {context.props.value.priority}
-    </button>
-  );
-}
-
-function Select(context) {
-  let radioSet = [];
-  for (let i = MAX_PRIORITY; i <= MIN_PRIORITY; i++) {
-    radioSet.push(<li key={i} className='priority-radio'>
-      <label
-        htmlFor={'articlePriority' + i}
-        className='checkbox-container'
-      >
-        <span className='label-title'>{i}</span>
-        <input
-          onChange={event => handleChange(event, context)}
-          type="radio"
-          name="articlePriority"
-          value={i}
-          defaultChecked={i === context.props.value.priority}
-          id={'articlePriority' + i}
-          className='checkbox-button'
-        />
-        <span className="checkmark"></span>
-      </label>
-    </li>);
-  }
-  return (
-    <form onSubmit={event => handleSubmit(event, context)}>
-      <ul className='prioriry-list'>
-        {radioSet}
-      </ul>
-      <button type='submit' className='button'>Change</button>
-    </form>
-  );
-}
-
 class ConnectedPost extends React.Component {
+  static propTypes = {
+    id: number.isRequired,
+    value: object.isRequired
+  }
+
   constructor() {
     super();
     this.state = {
       priorityChanging: false,
       newPriority: null
     };
+  }
+
+  handleClick = () => {
+    this.setState({ priorityChanging: !this.state.priorityChanging });
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    if (this.state.newPriority) {
+      this.props.changePriority({
+        id: this.props.id,
+        oldPriority: this.props.value.priority,
+        newPriority: Number(this.state.newPriority)
+      });
+      this.setState({ newPriority: null });
+    }
+    this.setState({ priorityChanging: !this.state.priorityChanging });
+  }
+
+  handleChange = (event) => {
+    this.setState({ newPriority: event.target.value });
+  }
+
+  Button() {
+    return (
+      <button className='button' onClick={() => this.handleClick()}>
+        Change priority {this.props.value.priority}
+      </button>
+    );
+  }
+
+  Select() {
+    let radioSet = [];
+    for (let i = MAX_PRIORITY; i <= MIN_PRIORITY; i++) {
+      radioSet.push(
+        <li key={i} className='priority-radio'>
+          <label
+            htmlFor={'articlePriority' + i}
+            className='checkbox-container'
+          >
+            <span className='label-title'>{i}</span>
+            <input
+              onChange={event => this.handleChange(event)}
+              type="radio"
+              name="articlePriority"
+              value={i}
+              defaultChecked={i === this.props.value.priority}
+              id={'articlePriority' + i}
+              className='checkbox-button'
+            />
+            <span className="checkmark"></span>
+          </label>
+        </li>
+      );
+    }
+    return (
+      <form onSubmit={event => this.handleSubmit(event)}>
+        <ul className='prioriry-list'>
+          {radioSet}
+        </ul>
+        <button type='submit' className='button'>Change</button>
+      </form>
+    );
   }
 
   render() {
@@ -97,7 +106,7 @@ class ConnectedPost extends React.Component {
               </a>
           </h3>
           <div className="desc">
-            {this.state.priorityChanging ? Select(this) : Button(this)}
+            {this.state.priorityChanging ? this.Select() : this.Button()}
           </div>
         </div>
       </div>

@@ -10,12 +10,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 class MoreNews extends React.Component {
-	constructor() {
-		super();
-		this.handleClick = this.handleClick.bind(this);
-	}
-
-	handleClick() {
+	handleClick = () => {
 		this.props.addNews();
 	}
 

@@ -30,7 +30,8 @@ function rootReducer(state = initialState, action) {
                 }
             }
             return Object.assign({}, state, {
-                priorities: Object.assign({}, state.priorities, stateCopy)
+                priorities: Object.assign({}, state.priorities, stateCopy),
+                filteredPriorities: Object.keys(stateCopy)
             });
         case FILTER_PRIORITIES:
             return Object.assign({}, state, {

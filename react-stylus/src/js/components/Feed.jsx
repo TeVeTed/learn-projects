@@ -1,10 +1,26 @@
 import React from 'react';
+import { array, object } from 'prop-types';
+
 import Post from './Post.jsx';
 
 import { connect } from 'react-redux';
 import { getData } from '../actions/index';
 
+function mapStateToProps(state) {
+  return {
+    news: state.remoteNews,
+    priorities: state.priorities,
+    filteredPriorities: state.filteredPriorities
+  };
+}
+
 export class Feed extends React.Component {
+  static propTypes = {
+    news: array.isRequired,
+    priorities: object.isRequired,
+    filteredPriorities: array.isRequired
+  }
+
   componentDidMount() {
     this.props.getData();
   }
@@ -35,14 +51,6 @@ export class Feed extends React.Component {
       </div>
     );
   }
-}
-
-function mapStateToProps(state) {
-  return {
-    news: state.remoteNews,
-    priorities: state.priorities,
-    filteredPriorities: state.filteredPriorities
-  };
 }
 
 export default connect(

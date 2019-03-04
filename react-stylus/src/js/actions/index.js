@@ -7,7 +7,8 @@ import {
 
 let
   lastReturnedDayMilliseconds,
-  moreClickCounter = 0;
+  moreClickCounter = 0,
+  responseArticlesAmount = 0;
 
 // Get date (if need - date of previous day) for request
   function getPreviousDay(previous) {
@@ -53,6 +54,7 @@ export function getData() {
       .then(json => {
         const priorities = {};
 
+        responseArticlesAmount = json.articles.length;
         json.articles.map((item, i) => {
           // Set priority
           item.priority = generatePriority(1, 5);
@@ -84,7 +86,7 @@ export function addNews() {
       .then(json => {
         const
           priorities = {},
-          increaseIndex = moreClickCounter ? (10 + 5 * moreClickCounter) : 10; // Modifiying indexes, which depends on day in request
+          increaseIndex = moreClickCounter ? (responseArticlesAmount + 5 * moreClickCounter) : responseArticlesAmount; // Modifiying indexes, which depends on day in request
 
         json.articles.map((item, i) => {
           // Set priority
