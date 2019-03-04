@@ -1,5 +1,5 @@
 import React from 'react';
-import { number, object } from 'prop-types';
+import { object } from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import { connect } from "react-redux";
@@ -7,16 +7,21 @@ import { changePriority } from "../actions/index";
 
 import { MAX_PRIORITY, MIN_PRIORITY } from '../constants/action-types';
 
+function mapStateToProps(state, ownProps) {
+  return {
+    article: state.remoteNews[ownProps.match.params.index]
+  }
+}
+
 function mapDispatchToProps(dispatch) {
   return {
     changePriority: priority => dispatch(changePriority(priority))
   };
 }
 
-class ConnectedPost extends React.Component {
+class ArticlePage extends React.Component {
   static propTypes = {
-    id: number.isRequired,
-    value: object.isRequired
+    article: object.isRequired
   }
 
   constructor() {
@@ -35,8 +40,8 @@ class ConnectedPost extends React.Component {
     event.preventDefault();
     if (this.state.newPriority) {
       this.props.changePriority({
-        id: this.props.id,
-        oldPriority: this.props.value.priority,
+        id: this.props.match.params.index,
+        oldPriority: this.props.article.priority,
         newPriority: Number(this.state.newPriority)
       });
       this.setState({ newPriority: null });
@@ -48,14 +53,10 @@ class ConnectedPost extends React.Component {
     this.setState({ newPriority: event.target.value });
   }
 
-  handleClickLink = () => {
-    sessionStorage.setItem('selectedArticle', JSON.stringify(this.props.value));
-  }
-
   Button() {
     return (
       <button className='button' onClick={() => this.handleClick()}>
-        Change priority {this.props.value.priority}
+        Change priority {this.props.article.priority}
       </button>
     );
   }
@@ -75,7 +76,7 @@ class ConnectedPost extends React.Component {
               type="radio"
               name="articlePriority"
               value={i}
-              defaultChecked={i === this.props.value.priority}
+              defaultChecked={i === this.props.article.priority}
               id={'articlePriority' + i}
               className='checkbox-button'
             />
@@ -95,19 +96,42 @@ class ConnectedPost extends React.Component {
   }
 
   render() {
+    // if (!this.props.article)
+    //   this.props.article = sessionStorage.getItem('selectedArticle');
+
     return (
-      <div className='news-item'>
-        <div className="news-item-img">
-          <img src={this.props.value.urlToImage} alt='' width='280' height='280' className='img-item' />
-        </div>
-        <div className="news-item-bg">
-          <h3 className="title small-title" onClick={() => this.handleClickLink()}>
-            <Link to={`/article/${this.props.id}`} className="title-link">
-              {this.props.value.title}
-            </Link>
-          </h3>
-          <div className="desc">
-            {this.state.priorityChanging ? this.Select() : this.Button()}
+      <div className="article-sec">
+        <div className="block-wrapper">
+          <div className="block-column">
+            <div className="article">
+              <div className="half-place art-img">
+                <img src={this.props.article.urlToImage} alt="" width='570' height='570' className="main-img"/>
+              </div>
+              <div className="half-place art-more">
+                <div className="info">
+                  <h2 className="sec-title middle-title">
+                    {this.props.article.title}
+                  </h2>
+                  <p className="desc">
+                    {this.props.article.description}
+                  </p>
+                </div>
+                <div className="add-info">
+                  <div className="add-info-item">
+                    <span>Source</span>
+                    <p className="add-info-title">{this.props.article.source.name}</p>
+                  </div>
+                  <div className="add-info-item">
+                    <span>Author(s)</span>
+                    <p className="add-info-title">{this.props.article.author}</p>
+                  </div>
+                  <div className="add-info-item">
+                    {this.state.priorityChanging ? this.Select() : this.Button()}
+                  </div>
+                </div>
+                <div className='returning-link'><Link to='/'>Return to feed >>></Link></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -115,6 +139,6 @@ class ConnectedPost extends React.Component {
   }
 }
 
-const Post = connect(null, mapDispatchToProps)(ConnectedPost);
+const Article = connect(mapStateToProps, mapDispatchToProps)(ArticlePage);
 
-export default Post;
+export default Article;

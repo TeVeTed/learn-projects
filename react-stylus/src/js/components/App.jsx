@@ -10,11 +10,9 @@ class App extends React.Component {
         <Filter />
         <div className="block-wrapper">
           <h1 className="sec-title big-title">News feed</h1>
-          <div className="horizontal-block">
-            <div className="block-column btn-sec">
-              <Feed />
-              <More />
-            </div>
+          <div className="block-column">
+            <Feed />
+            <More />
           </div>
         </div>
       </div>
