@@ -22,7 +22,7 @@ export class Feed extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getData();
+    if (!this.props.news.length) this.props.getData();
   }
 
   getFilteredNews(filters, allByPriority) {
