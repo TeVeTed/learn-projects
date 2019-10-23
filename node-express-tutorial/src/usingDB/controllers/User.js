@@ -57,6 +57,30 @@ const User = {
 			if (!rows[0]) {
 				return res.status(400).send({ 'message': 'The credentials you provided is incorrect' });
 			}
+			if (!Helper.comparePassword(rows[0].password, req.body.password)) {
+				return res.status(400).send({ 'message': 'The credentials you provided is incorrect' });
+			}
+			const token = Helper.generateToken(rows[0].id);
+
+			return res.status(200).send({ token });
+		} catch (error) {
+			return res.status(400).send(error);
+		}
+	},
+
+	async delete(req, res) {
+		const deleteQuery = 'DELETE FROM users WHERE id=$1 returning *';
+		try {
+			const { rows } = await db.query(deleteQuery, [req.user.id]);
+			if (!rows[0]) {
+				return res.status(400).send({ 'message': 'user not found' });
+			}
+
+			return res.status(204).send({ 'message': 'deleted' });
+		} catch (error) {
+			return res.status(400).send(error);
 		}
 	}
 };
+
+export default User;
