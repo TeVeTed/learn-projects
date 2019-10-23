@@ -42,6 +42,18 @@ const User = {
 		}
 	},
 
+	async getAll(req, res) {
+		const findAllQuery = 'SELECT * FROM users';
+
+		try {
+			const { rows, rowCount } = await db.query(findAllQuery);
+
+			return res.status(200).send({ rows, rowCount });
+		} catch (error) {
+			return res.status(400).send(error);
+		}
+	},
+
 	async login(req, res) {
 		if (!req.body.email || !req.body.password) {
 			return res.status(400).send({ 'message': 'Some values are missing' });
