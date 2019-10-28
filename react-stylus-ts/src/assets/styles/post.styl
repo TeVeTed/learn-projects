@@ -1,0 +1,50 @@
+// Prohibits text selection
+user-select(n)
+  -webkit-user-select n
+  -moz-user-select n
+  -ms-user-select n
+  user-select n
+
+.news-item
+	margin-top 20px
+	display flex
+	flex-direction column
+	align-items center
+	justify-content space-around
+	margin-right 20px
+
+	.news-item-img
+		background-color #27AE60
+		height 280px
+
+		.img-item
+			opacity 0.2
+
+	.news-item-bg
+		position absolute
+		color white
+		width 280px
+		padding 0 15px
+
+		.title
+			text-align center
+			font-weight 900
+
+			.title-link
+				color inherit
+				font-size inherit
+
+		.desc
+			color #FFFFFF
+			text-align center
+			margin-bottom 0
+			font-size 14px
+			line-height 1.42857143
+			color #333333
+
+			.button
+				margin-top 5px
+				border 1px solid white
+				font-size 14px
+
+			@import 'priorities.styl';
