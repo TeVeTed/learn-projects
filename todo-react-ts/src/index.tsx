@@ -5,9 +5,9 @@ import { Provider } from 'react-redux';
 
 import App from './components/App';
 
-import { items } from './reducers/index';
-import { StoreState } from './types/index';
-import { ItemAction } from './actions/index';
+import { items } from './reducers';
+import { StoreState } from './types';
+import { ItemAction } from './actions';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 

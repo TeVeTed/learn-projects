@@ -532,7 +532,7 @@ export default UndoRedo
 
 Now you can add `UndoRedo` component to the `App` component:
 
-#### `components/App.js`
+#### `components/App.jsx`
 
 ```js
 import React from 'react'

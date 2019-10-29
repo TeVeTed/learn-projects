@@ -13,8 +13,8 @@
     "typescript": "3.6.4"
   },
   "scripts": {
-    "build-css": "stylus -c src/static/stylus/ --out src/static/css",
-    "watch-css": "npm run build-css && stylus -c -w src/static/stylus/ --out src/static/css",
+    "build-css": "stylus -c src/assets/styles/ --out src/assets/styles/",
+    "watch-css": "npm run build-css && stylus -c -w src/assets/styles/ --out src/assets/styles/",
     "start-js": "react-scripts start",
     "start": "npm-run-all -p watch-css start-js",
     "build-js": "react-scripts build",

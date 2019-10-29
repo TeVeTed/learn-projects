@@ -298,7 +298,7 @@ export default TodoList
 
 Here is an `App` component that renders three `VisibleTodoList` components, each of which has a `listId` prop:
 
-#### `components/App.js`
+#### `components/App.jsx`
 
 ```js
 import React from 'react'

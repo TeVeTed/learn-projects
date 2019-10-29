@@ -36,11 +36,11 @@ class InputForm extends React.Component<Props, State> {
 
   handleChangeInput = (event: any) => {
     this.setState({ newItem: event.target.value });
-  }
+  };
 
   handleChangeCheckbox = (event: any) => {
     this.setState({ changeClosing: event.target.checked });
-  }
+  };
 
   handleSubmit = (event: any, name: string = 'Вася') => {
     event.preventDefault();
@@ -49,7 +49,7 @@ class InputForm extends React.Component<Props, State> {
       this.props.onAdd({item: newItem, closed: changeClosing});
     }
     this.setState({ newItem: '', changeClosing: false });
-  }
+  };
 
   render() {
     const { newItem } = this.state;

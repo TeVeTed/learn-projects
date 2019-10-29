@@ -201,7 +201,7 @@ When previously we wrote: `<Route path="/:filter?" component={App} />`, it made 
 
 Note that we are using [ES6 destructuring](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) on the properties to pass in `params` to `<VisibleTodoList />`.
 
-#### `components/App.js`
+#### `components/App.jsx`
 
 ```js
 const App = ({ match: { params } }) => {

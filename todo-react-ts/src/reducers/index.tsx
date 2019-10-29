@@ -1,5 +1,5 @@
 import { ItemAction } from '../actions';
-import { StoreState } from '../types/index';
+import { StoreState } from '../types';
 import * as constants from '../constants';
 
 export function items(state: StoreState, action: ItemAction): StoreState {
@@ -9,7 +9,7 @@ export function items(state: StoreState, action: ItemAction): StoreState {
         ...state,
         items: state.items.concat(action.payload.item),
         closed: state.closed.concat(action.payload.closed)
-      }
+      };
       case constants.REMOVE_ITEM:
         state.items.splice(action.index, 1);
         state.closed.splice(action.index, 1);
@@ -18,14 +18,14 @@ export function items(state: StoreState, action: ItemAction): StoreState {
           items: state.items,
           closed: state.closed,
           listModified: !state.listModified
-        }
+        };
       case constants.REVERT_CLOSING:
         state.closed[action.index] = !state.closed[action.index];
         return {
           ...state,
           closed: state.closed,
           listModified: !state.listModified
-        }
+        };
     default:
       return state;
   }

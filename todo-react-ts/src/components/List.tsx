@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import { StoreState } from '../types/index';
+import { StoreState } from '../types';
 
 import Item from './Item';
 
@@ -29,6 +29,5 @@ function List({ items, closed }: Props) {
       })}
     </ul>
   )
-};
-
+}
 export default connect(mapStateToProps)(List);

@@ -395,7 +395,7 @@ If you are unfamiliar with the `ref` attribute, please read this [documentation]
 
 ### Tying the containers together within a component
 
-#### `components/App.js`
+#### `components/App.jsx`
 
 ```js
 import React from 'react'

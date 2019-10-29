@@ -104,7 +104,7 @@ export default combineReducers({
 })
 ```
 
-#### `App.js`
+#### `App.jsx`
 
 ```js
 import { createStore } from 'redux'

@@ -221,7 +221,7 @@ const Footer = () => (
 export default Footer
 ```
 
-#### `components/App.js`
+#### `components/App.jsx`
 
 ```js
 import React from 'react'
