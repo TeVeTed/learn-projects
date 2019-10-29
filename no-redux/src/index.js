@@ -1,11 +1,17 @@
+// React
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
-import { StoreProvider } from './Store';
-import HomePage from './HomePage';
-import FavPage from "./FavPage";
 import { Router } from '@reach/router';
 
+// ContextAPI
+import { StoreProvider } from './Store';
+
+// App components
+import App from './App';
+import HomePage from './HomePage';
+import FavPage from "./FavPage";
+
+// Stylesheets
 import './index.css';
 
 ReactDOM.render(
