@@ -96,9 +96,6 @@ class ArticlePage extends React.Component {
   }
 
   render() {
-    // if (!this.props.article)
-    //   this.props.article = sessionStorage.getItem('selectedArticle');
-
     return (
       <div className="article-sec">
         <div className="block-wrapper">

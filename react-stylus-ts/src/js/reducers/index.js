@@ -27,7 +27,7 @@ function reducer(state, action) {
         ...state,
         priorities: {
           ...state.priorities,
-          stateCopy
+          ...stateCopy
         },
         filteredPriorities: Object.keys(stateCopy)
       };

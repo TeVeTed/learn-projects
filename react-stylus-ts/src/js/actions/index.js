@@ -107,17 +107,18 @@ export const addNews = async dispatch => {
     // Call an actions from reducer
     dispatch({ type: DATA_LOADED, payload: responseJSON.articles });
     dispatch({ type: SELECT_PRIORITIES, payload: priorities });
+
   } catch (error) {
     console.log(error);
   }
 };
 
 // Update priorities that selected in filter block
-export const filteredPriorities = payload => {
-  return { type: FILTER_PRIORITIES, payload };
+export const filteredPriorities = (dispatch, payload) => {
+  dispatch({ type: FILTER_PRIORITIES, payload });
 };
 
 // Update article priority with new value
-export const changePriority = payload => {
-  return { type: CHANGE_PRIORITY, payload };
+export const changePriority = (dispatch, payload) => {
+  dispatch({ type: CHANGE_PRIORITY, payload });
 };

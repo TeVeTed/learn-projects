@@ -1,5 +1,5 @@
 import React from 'react';
-import reducer from '../reducers/index';
+import reducer from '../reducers';
 
 export const Store = React.createContext();
 

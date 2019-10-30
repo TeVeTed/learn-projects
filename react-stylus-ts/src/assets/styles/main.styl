@@ -1,0 +1,56 @@
+*
+	margin 0
+	padding 0
+	box-sizing border-box
+	text-decoration none
+	font-family sans-serif
+	font-size 14px
+
+// Filter block
+@import 'filter.styl';
+
+.big-title
+	font-size 36px
+
+.middle-title
+	font-size 30px
+
+.small-title
+	font-size 24px
+
+.big-title, .middle-title, .small-title
+	line-height 1.1
+	margin-bottom 15px
+	font-weight 500
+
+.block-wrapper
+	padding-right 15px
+	padding-left 15px
+	margin-right auto
+	margin-left auto
+
+	.sec-title
+		font-weight 900
+		text-align center
+		margin-top 45px
+		margin-bottom 0
+		color #333333
+	
+	.block-column
+		margin-right -15px
+		margin-left -15px
+		display flex
+		flex-direction column
+		width 100%
+		position relative
+		min-height 1px
+		padding-right 15px
+		padding-left 15px
+
+		@import 'article.styl'
+
+		@import 'more.styl'
+
+		@import 'feed.styl'
+
+@import 'media.styl'

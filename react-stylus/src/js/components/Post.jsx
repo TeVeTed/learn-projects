@@ -48,10 +48,6 @@ class ConnectedPost extends React.Component {
     this.setState({ newPriority: event.target.value });
   }
 
-  handleClickLink = () => {
-    sessionStorage.setItem('selectedArticle', JSON.stringify(this.props.value));
-  }
-
   Button() {
     return (
       <button className='button' onClick={() => this.handleClick()}>
