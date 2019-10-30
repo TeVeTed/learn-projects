@@ -14,11 +14,11 @@ import ArticlePage from './js/components/ArticlePage';
 import './assets/styles/main.css';
 
 ReactDOM.render(
-		<StoreProvider>
-			<Router>
-				<App path='/'>
-
-				</App>
-			</Router>
-		</StoreProvider>
+	<StoreProvider>
+		<Router>
+			<App path='/' />
+			<ArticlePage path='/article/:index' />
+		</Router>
+	</StoreProvider>,
+	document.getElementById('root')
 );

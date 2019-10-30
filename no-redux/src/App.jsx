@@ -4,7 +4,6 @@ import { Link } from '@reach/router';
 
 export default function App(props) {
   const { state } = React.useContext(Store);
-  console.log(props);
 
   return (
     <React.Fragment>

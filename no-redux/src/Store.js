@@ -10,7 +10,10 @@ const initialState = {
 function reducer(state, action) {
   switch (action.type) {
     case 'FETCH_DATA':
-      return { ...state, episodes: action.payload };
+      return {
+        ...state,
+        episodes: action.payload
+      };
     case 'ADD_FAV':
       return {
         ...state,
