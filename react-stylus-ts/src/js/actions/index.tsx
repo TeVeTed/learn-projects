@@ -5,13 +5,17 @@ import {
   CHANGE_PRIORITY
 } from '../constants/action-types';
 
+interface FilterPayload {
+
+}
+
 let
-  lastReturnedDayMilliseconds,
+  lastReturnedDayMilliseconds: any,
   moreClickCounter = 0,
   responseArticlesAmount = 0;
 
 // Get date (if need - date of previous day) for request
-const getPreviousDay = previous => {
+const getPreviousDay = (previous: boolean) => {
   const
     date = previous ? new Date(lastReturnedDayMilliseconds - 24 * 3600 * 1000) : new Date(),
     year = date.getFullYear(),
@@ -24,7 +28,7 @@ const getPreviousDay = previous => {
 };
 
 // Make request for fetching
-const formRequest = (keyword, lang, amount, addLoad) => {
+const formRequest = (keyword: string, lang: string, amount: string, addLoad: boolean) => {
   const
     day = getPreviousDay(addLoad),
     url = 'https://newsapi.org/v2/everything?' +
@@ -40,14 +44,14 @@ const formRequest = (keyword, lang, amount, addLoad) => {
 };
 
 // Randomly set a priority value to an article
-const generatePriority = (min, max) => {
+const generatePriority = (min: number, max: number): number => {
   const rand = min - 0.5 + Math.random() * (max - min + 1);
 
   return Math.round(rand);
 };
 
 // Fetching data from API for initial view on page
-export const getData = async dispatch => {
+export const getData = async (dispatch: Function) => {
   try {
     const response = await fetch(formRequest('IT', 'en', '10', false));
     const responseJSON = await response.json();
@@ -57,7 +61,7 @@ export const getData = async dispatch => {
     responseArticlesAmount = responseJSON.articles.length;
     responseJSON.articles.map((item, i) => {
       // Set priority
-      item.priority = generatePriority(1, 5);
+      item['priority'] = generatePriority(1, 5);
 
       // Form an object of arrays, sorted by priority with article indexes
       if (!priorities[item.priority]) {
@@ -80,7 +84,7 @@ export const getData = async dispatch => {
 };
 
 // Fetching data from API, adding new articles to list
-export const addNews = async dispatch => {
+export const addNews = async (dispatch: Function) => {
   try {
     const response = await fetch(formRequest('IT', 'en', '5', true));
     const responseJSON = await response.json();
@@ -91,7 +95,7 @@ export const addNews = async dispatch => {
 
     responseJSON.articles.map((item, i) => {
       // Set priority
-      item.priority = generatePriority(1, 5);
+      item['priority'] = generatePriority(1, 5);
 
       // Form an object of arrays, sorted by priority with article indexes
       if (!priorities[item.priority]) {
@@ -114,11 +118,17 @@ export const addNews = async dispatch => {
 };
 
 // Update priorities that selected in filter block
-export const filteredPriorities = (dispatch, payload) => {
-  dispatch({ type: FILTER_PRIORITIES, payload });
+export const filteredPriorities = (dispatch: Function, payload) => {
+  dispatch({
+    type: FILTER_PRIORITIES,
+    payload
+  });
 };
 
 // Update article priority with new value
-export const changePriority = (dispatch, payload) => {
-  dispatch({ type: CHANGE_PRIORITY, payload });
+export const changePriority = (dispatch: Function, payload) => {
+  dispatch({
+    type: CHANGE_PRIORITY,
+    payload
+  });
 };

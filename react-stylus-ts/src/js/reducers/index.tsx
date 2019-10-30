@@ -1,19 +1,15 @@
-import {
-  DATA_LOADED,
-  SELECT_PRIORITIES,
-  FILTER_PRIORITIES,
-  CHANGE_PRIORITY
-} from '../constants/action-types';
+import { StoreState } from '../types';
+import * as constants from '../constants/action-types';
 
 // Applying actions
-function reducer(state, action) {
+function reducer(state: StoreState, action): StoreState {
   switch (action.type) {
-    case DATA_LOADED:
+    case constants.DATA_LOADED:
       return {
         ...state,
         remoteNews: state.remoteNews.concat(action.payload)
       };
-    case SELECT_PRIORITIES:
+    case constants.SELECT_PRIORITIES:
       const stateCopy = {
         ...state.priorities
       };
@@ -31,12 +27,12 @@ function reducer(state, action) {
         },
         filteredPriorities: Object.keys(stateCopy)
       };
-    case FILTER_PRIORITIES:
+    case constants.FILTER_PRIORITIES:
       return {
         ...state,
         filteredPriorities: action.payload
       };
-    case CHANGE_PRIORITY:
+    case constants.CHANGE_PRIORITY:
       const
         prioritiesCopy = state.priorities,
         newsCopy = state.remoteNews,

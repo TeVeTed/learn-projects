@@ -21,5 +21,5 @@ ReactDOM.render(
 			<ArticlePage path='/article/:index' />
 		</Router>
 	</StoreProvider>,
-	document.getElementById('root')
+	document.getElementById('root') as HTMLElement
 );

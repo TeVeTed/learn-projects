@@ -4,7 +4,7 @@ import { Link } from '@reach/router';
 import { Store } from '../store';
 import { changePriority } from "../actions";
 
-import { MAX_PRIORITY, MIN_PRIORITY } from "../constants/action-types";
+import { PRIORITY_LIMITS } from "../constants/action-types";
 
 const Post = props => {
 	const { dispatch } = React.useContext(Store);
@@ -44,7 +44,7 @@ const Post = props => {
 	const Select = () => {
 		const radioSet = [];
 
-		for (let i = MAX_PRIORITY; i <= MIN_PRIORITY; i++) {
+		for (let i = PRIORITY_LIMITS.MAX_PRIORITY; i <= PRIORITY_LIMITS.MIN_PRIORITY; i++) {
 			radioSet.push(
 					<li key={i} className='priority-radio'>
 						<label

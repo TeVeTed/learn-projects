@@ -1,10 +1,11 @@
 import React from 'react';
+import { RouteComponentProps } from '@reach/router';
 
 import Feed from './Feed.jsx';
 import More from './More.jsx';
 import Filter from './Filter.jsx';
 
-const App = () => {
+const App = (props: RouteComponentProps) => {
 	return (
 		<div className="feed-sec">
 			<Filter />

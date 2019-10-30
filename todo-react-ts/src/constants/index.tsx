@@ -10,5 +10,4 @@ export type REVERT_CLOSING = typeof REVERT_CLOSING;
 export enum OPERATIONS {
   ADD_ITEM = 'ADD_ITEM',
   REMOVE_ITEM = 'REMOVE_ITEM'
-
 }
