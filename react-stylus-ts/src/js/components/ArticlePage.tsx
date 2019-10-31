@@ -1,23 +1,31 @@
 import React from 'react';
-import { Link } from "@reach/router";
+import { Link, RouteComponentProps } from "@reach/router";
 
 import { Store } from '../store';
 import { changePriority } from "../actions";
 
 import { PRIORITY_LIMITS } from "../constants/action-types";
 
-const ArticlePage = props => {
+const isNumber = (index: any): index is number => {
+	return typeof index === 'number';
+};
+
+interface Props extends RouteComponentProps {
+	index?: number
+}
+
+const ArticlePage = (props: Props) => {
 	const { state, dispatch } = React.useContext(Store);
 
 	const
-		[priorityChanging, setPriorityChanging] = React.useState(false),
-		[newPriority, setNewPriority] = React.useState(null);
-
-	const article = state.remoteNews[props.index];
+		[priorityChanging, setPriorityChanging] = React.useState<boolean>(false),
+		[newPriority, setNewPriority] = React.useState<string | null>(null);
 
 	const handleClick = () => setPriorityChanging(!priorityChanging);
 
-	const handleSubmit = event => {
+	const article = state.remoteNews[props.index];
+
+	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 
 		if (newPriority) {
@@ -34,13 +42,13 @@ const ArticlePage = props => {
 		setPriorityChanging(!priorityChanging);
 	};
 
-	const handleChange = event => setNewPriority(event.target.value);
+	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => setNewPriority(event.target.value);
 
 	const Button = () => {
 		return (
-				<button className='button' onClick={() => handleClick()}>
-					Change priority {article.priority}
-				</button>
+			<button className='button' onClick={() => handleClick()}>
+				Change priority {article.priority}
+			</button>
 		);
 	};
 
@@ -49,33 +57,33 @@ const ArticlePage = props => {
 
 		for (let i = PRIORITY_LIMITS.MAX_PRIORITY; i <= PRIORITY_LIMITS.MIN_PRIORITY; i++) {
 			radioSet.push(
-					<li key={i} className='priority-radio'>
-						<label
-								htmlFor={'articlePriority' + i}
-								className='checkbox-container'
-						>
-							<span className='label-title'>{i}</span>
-							<input
-									onChange={event => handleChange(event)}
-									type="radio"
-									name="articlePriority"
-									value={i}
-									defaultChecked={i === article.priority}
-									id={'articlePriority' + i}
-									className='checkbox-button'
-							/>
-							<span className="checkmark"></span>
-						</label>
-					</li>
+				<li key={i} className='priority-radio'>
+					<label
+						htmlFor={'articlePriority' + i}
+						className='checkbox-container'
+					>
+						<span className='label-title'>{i}</span>
+						<input
+							onChange={event => handleChange(event)}
+							type="radio"
+							name="articlePriority"
+							value={i}
+							defaultChecked={i === article.priority}
+							id={'articlePriority' + i}
+							className='checkbox-button'
+						/>
+						<span className="checkmark"></span>
+					</label>
+				</li>
 			);
 		}
 		return (
-				<form onSubmit={event => handleSubmit(event)}>
-					<ul className='prioriry-list'>
-						{radioSet}
-					</ul>
-					<button type='submit' className='button'>Change</button>
-				</form>
+			<form onSubmit={event => handleSubmit(event)}>
+				<ul className='prioriry-list'>
+					{radioSet}
+				</ul>
+				<button type='submit' className='button'>Change</button>
+			</form>
 		);
 	}
 

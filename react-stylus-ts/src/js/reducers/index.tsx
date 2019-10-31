@@ -1,8 +1,10 @@
-import { StoreState } from '../types';
+import {ItemObject, StoreState} from '../types';
+
 import * as constants from '../constants/action-types';
+import { ItemAction } from '../actions';
 
 // Applying actions
-function reducer(state: StoreState, action): StoreState {
+function reducer(state: StoreState, action: ItemAction): StoreState {
   switch (action.type) {
     case constants.DATA_LOADED:
       return {
@@ -30,32 +32,37 @@ function reducer(state: StoreState, action): StoreState {
     case constants.FILTER_PRIORITIES:
       return {
         ...state,
-        filteredPriorities: action.payload
+        filteredPriorities: action.payload.filteredPriorities
       };
     case constants.CHANGE_PRIORITY:
       const
-        prioritiesCopy = state.priorities,
-        newsCopy = state.remoteNews,
+        prioritiesCopy: object = state.priorities,
+        newsCopy: Array<ItemObject> = state.remoteNews,
         newValue = action.payload.newPriority,
         oldValue = action.payload.oldPriority;
+
+      let
+          oldArticleSet: Array<number> = prioritiesCopy[oldValue],
+          newArticleSet: Array<number> = prioritiesCopy[newValue];
 
       // Update array with articles
       newsCopy[action.payload.id].priority = newValue;
 
       // Update priorities for filters
       prioritiesCopy[oldValue] =
-        prioritiesCopy[oldValue]
+          oldArticleSet
           .filter(item => item !== action.payload.id);
 
-      if (!prioritiesCopy[oldValue].length) {
+      if (!oldArticleSet.length) {
         delete prioritiesCopy[oldValue];
       }
-      if (!prioritiesCopy[newValue]) {
+      if (!newArticleSet) {
         prioritiesCopy[newValue] = [];
       }
 
       prioritiesCopy[newValue].push(action.payload.id);
-      prioritiesCopy[newValue].sort((a, b) => a - b);
+      prioritiesCopy[newValue] =
+          newArticleSet.sort((a, b) => a - b);
 
       return {
         ...state,

@@ -3,19 +3,25 @@ import { Link } from '@reach/router';
 
 import { Store } from '../store';
 import { changePriority } from "../actions";
+import { ItemObject } from '../types';
 
 import { PRIORITY_LIMITS } from "../constants/action-types";
 
-const Post = props => {
+interface Props {
+	value: ItemObject,
+	id: number
+}
+
+const Post = (props: Props) => {
 	const { dispatch } = React.useContext(Store);
 
 	const
 		[priorityChanging, setPriorityChanging] = React.useState(false),
-		[newPriority, setNewPriority] = React.useState(null);
+		[newPriority, setNewPriority] = React.useState<string | null>(null);
 
 	const handleClick = () => setPriorityChanging(!priorityChanging);
 
-	const handleSubmit = event => {
+	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		if (newPriority) {
 			changePriority(
@@ -31,7 +37,7 @@ const Post = props => {
 		setPriorityChanging(!priorityChanging);
 	};
 
-	const handleChange = event => setNewPriority(event.target.value);
+	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => setNewPriority(event.target.value);
 
 	const Button = () => {
 		return (

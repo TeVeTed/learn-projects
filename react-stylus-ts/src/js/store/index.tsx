@@ -1,7 +1,12 @@
 import React from 'react';
 import reducer from '../reducers';
 
-export const Store = React.createContext();
+import { StoreState } from '../types';
+
+interface ContextProps {
+  state: StoreState,
+  dispatch: ({type}:{type: string}) => void
+}
 
 // Set a 'schema' for state
 const initialState = {
@@ -10,6 +15,8 @@ const initialState = {
   filteredPriorities: [],
   updateFilters: false
 };
+
+export const Store = React.createContext({} as ContextProps);
 
 export function StoreProvider(props) {
   const

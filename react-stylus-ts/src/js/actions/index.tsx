@@ -5,12 +5,42 @@ import {
   CHANGE_PRIORITY
 } from '../constants/action-types';
 
-interface FilterPayload {
+import { ItemObject } from '../types';
 
+interface FilteredPrioritiesPayload {
+  filteredPriorities: Array<string>
 }
 
+interface ChangePriorityPayload {
+  newPriority: number,
+  oldPriority: number,
+  id: number
+}
+
+interface DataLoad {
+  type: DATA_LOADED,
+  payload: Array<ItemObject>
+}
+
+interface SelectPriorities {
+  type: SELECT_PRIORITIES,
+  payload: object
+}
+
+interface FilterPriorities {
+  type: FILTER_PRIORITIES,
+  payload: FilteredPrioritiesPayload
+}
+
+interface ChangePriority {
+  type: CHANGE_PRIORITY,
+  payload: ChangePriorityPayload
+}
+
+export type ItemAction = DataLoad | SelectPriorities | FilterPriorities | ChangePriority
+
 let
-  lastReturnedDayMilliseconds: any,
+  lastReturnedDayMilliseconds: number,
   moreClickCounter = 0,
   responseArticlesAmount = 0;
 
@@ -22,7 +52,7 @@ const getPreviousDay = (previous: boolean) => {
     month = (date.getMonth() + 1) >= 10 ? (date.getMonth() + 1) : '0' + (date.getMonth() + 1),
     day = date.getDate() >= 10 ? date.getDate() : '0' + date.getDate();
 
-  lastReturnedDayMilliseconds = date;
+  lastReturnedDayMilliseconds = date.getTime();
 
   return `${year}-${month}-${day}`;
 };
@@ -56,10 +86,12 @@ export const getData = async (dispatch: Function) => {
     const response = await fetch(formRequest('IT', 'en', '10', false));
     const responseJSON = await response.json();
 
-    const priorities = {};
+    const
+        priorities = {},
+        articles: Array<ItemObject> = responseJSON.articles;
 
-    responseArticlesAmount = responseJSON.articles.length;
-    responseJSON.articles.map((item, i) => {
+    responseArticlesAmount = articles.length;
+    articles.map((item, i) => {
       // Set priority
       item['priority'] = generatePriority(1, 5);
 
@@ -74,7 +106,7 @@ export const getData = async (dispatch: Function) => {
     });
 
     // Call an actions from reducer
-    dispatch({ type: DATA_LOADED, payload: responseJSON.articles });
+    dispatch({ type: DATA_LOADED, payload: articles });
     dispatch({ type: SELECT_PRIORITIES, payload: priorities });
     dispatch({ type: FILTER_PRIORITIES, payload: Object.keys(priorities) });
 
@@ -91,9 +123,10 @@ export const addNews = async (dispatch: Function) => {
 
     const
       priorities = {},
-      increaseIndex = moreClickCounter ? (responseArticlesAmount + 5 * moreClickCounter) : responseArticlesAmount; // Modifiying indexes, which depends on day in request
+      increaseIndex = moreClickCounter ? (responseArticlesAmount + 5 * moreClickCounter) : responseArticlesAmount, // Modifiying indexes, which depends on day in request
+      articles: Array<ItemObject> = responseJSON.articles;
 
-    responseJSON.articles.map((item, i) => {
+    articles.map((item, i) => {
       // Set priority
       item['priority'] = generatePriority(1, 5);
 
@@ -109,7 +142,7 @@ export const addNews = async (dispatch: Function) => {
     moreClickCounter++;
 
     // Call an actions from reducer
-    dispatch({ type: DATA_LOADED, payload: responseJSON.articles });
+    dispatch({ type: DATA_LOADED, payload: articles });
     dispatch({ type: SELECT_PRIORITIES, payload: priorities });
 
   } catch (error) {
@@ -118,7 +151,7 @@ export const addNews = async (dispatch: Function) => {
 };
 
 // Update priorities that selected in filter block
-export const filteredPriorities = (dispatch: Function, payload) => {
+export const filteredPriorities = (dispatch: Function, payload: FilteredPrioritiesPayload) => {
   dispatch({
     type: FILTER_PRIORITIES,
     payload
@@ -126,7 +159,7 @@ export const filteredPriorities = (dispatch: Function, payload) => {
 };
 
 // Update article priority with new value
-export const changePriority = (dispatch: Function, payload) => {
+export const changePriority = (dispatch: Function, payload: ChangePriorityPayload) => {
   dispatch({
     type: CHANGE_PRIORITY,
     payload

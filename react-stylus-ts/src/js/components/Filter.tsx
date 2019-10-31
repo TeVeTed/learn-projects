@@ -6,15 +6,15 @@ import { filteredPriorities } from '../actions';
 const Filter = () => {
 	const { state, dispatch } = React.useContext(Store);
 
-	const handleChange = source => {
+	const handleChange = (source: React.FormEvent<HTMLFormElement>) => {
 		const
-				checkboxes = document.getElementsByName('priority'),
-				checkboxesArr = Array.from(checkboxes),
-				checkboxAll = document.getElementById('checkbox0');
+			checkboxes = document.getElementsByName('priority') as NodeListOf<HTMLInputElement>,
+			checkboxesArr = Array.from(checkboxes),
+			checkboxAll = document.getElementById('checkbox0') as HTMLInputElement;
 
 		if (source.target === checkboxAll) {
 			for (let i = 0; i < checkboxes.length; i++) {
-				checkboxes[i].checked = source.target.checked;
+				checkboxes[i].checked = source.currentTarget.checked;
 			}
 		} else {
 			checkboxAll.checked = checkboxesArr.every(item => item.checked);
@@ -22,7 +22,7 @@ const Filter = () => {
 
 		const filtered = checkboxesArr.filter(item => item.checked);
 
-		filteredPriorities(dispatch, filtered.map(item => item.value));
+		filteredPriorities(dispatch, {filteredPriorities: filtered.map(item => item.value)});
 	};
 
 	const
@@ -56,7 +56,7 @@ const Filter = () => {
 					</label>
 				</div>
 				<div className="filter-container">
-					<form onChange={handleChange} className="filter-form">
+					<form onChange={event => handleChange(event)} className="filter-form">
 						<ul className="filter-list">
 							<li className="filter-list-item">
 								<label className='checkbox-container'>Select all ({totalArticles})

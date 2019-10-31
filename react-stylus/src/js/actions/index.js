@@ -34,7 +34,7 @@ function formRequest(keyword, lang, amount, addLoad) {
       `from=${day}&` +
       `to=${day}&` +
       `pageSize=${amount}&` +
-      'apiKey=06629c8bc17b48ce8e6829abec827a3a';
+      'apiKey=dd83ac194e554eefb3efe7edf64a37de';
 
   return new Request(url);
 }
