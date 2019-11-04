@@ -1,9 +1,10 @@
 import React from 'react';
+
 import { RouteComponentProps } from '@reach/router';
 
 import Feed from './Feed';
-import More from './More';
 import Filter from './Filter';
+import More from './More';
 
 const App = (props: RouteComponentProps) => {
 	return (

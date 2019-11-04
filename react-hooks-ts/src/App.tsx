@@ -1,8 +1,13 @@
 import * as React from 'react';
 
+import { Link, RouteComponentProps, Router } from '@reach/router';
+
+import { About } from './pages/About';
+import { News } from './pages/News'
+
 import './App.css';
 
-interface IAppProps {
+interface IAppProps extends RouteComponentProps {
   name: string;
   site: string;
 }
@@ -12,25 +17,29 @@ const App: React.FC<IAppProps> = props => {
     <div className="container">
       <h1>TZ #1 with hooks & TypeScript</h1>
       <nav>
-        <p>Навигация</p>
+        <Link to="/">Домой</Link> <Link to="news">Новости</Link>{' '}
+        <Link to="/about/habr">Про habr</Link>{' '}
       </nav>
-      
-      <p>Отрисовка роутов</p>
-      <p>Привет, {props.name}</p>
-      <p>Сайт: {props.site}</p>
+      <hr/>
+      <p>
+        {' '}
+        Автор: {props.name} | Сайт: {props.site}
+      </p>
+      <hr/>
       {props.children}
     </div>
   );
 }
 
-const Baby = () => {
-  return <p>дочерний элемент</p> 
-};
-
 const RoutedApp = () => {
-  return <App name="Frontend Dev" site="maxpfrontend.ru">
-    <Baby />
-  </App>
+  return (
+    <Router>
+      <App path="/" name="Frontend Dev" site="maxpfrontend.ru">
+        <News path="/news" />
+        <About path="/about/:source" />
+      </App>
+    </Router>
+  )
 }
 
 export { RoutedApp }

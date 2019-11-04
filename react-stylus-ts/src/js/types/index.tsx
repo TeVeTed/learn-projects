@@ -1,13 +1,13 @@
-interface ItemSourceObj {
+interface IItemSourceObj {
   id: string,
   name: string
 }
 
-export interface ItemObject {
+export interface IItemObject {
   author: string,
   description: string,
   priority: number,
-  source: ItemSourceObj,
+  source: IItemSourceObj,
   title: string,
   urlToImage: string,
   content?: string,
@@ -15,9 +15,9 @@ export interface ItemObject {
   url?: string
 }
 
-export interface StoreState {
-  remoteNews: Array<ItemObject>,
+export interface IStoreState {
+  remoteNews: IItemObject[],
   priorities: object,
-  filteredPriorities: Array<string>,
+  filteredPriorities: string[],
   updateFilters: boolean
 }

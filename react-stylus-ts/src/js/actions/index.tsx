@@ -1,43 +1,41 @@
+import { Dispatch } from 'react';
+
 import {
+  CHANGE_PRIORITY,
   DATA_LOADED,
-  SELECT_PRIORITIES,
   FILTER_PRIORITIES,
-  CHANGE_PRIORITY
+  SELECT_PRIORITIES
 } from '../constants/action-types';
 
-import { ItemObject } from '../types';
+import { IItemObject } from '../types';
 
-interface FilteredPrioritiesPayload {
-  filteredPriorities: Array<string>
-}
-
-interface ChangePriorityPayload {
+interface IChangePriorityPayload {
   newPriority: number,
   oldPriority: number,
   id: number
 }
 
-interface DataLoad {
+interface IDataLoad {
   type: DATA_LOADED,
-  payload: Array<ItemObject>
+  payload: IItemObject[]
 }
 
-interface SelectPriorities {
+interface ISelectPriorities {
   type: SELECT_PRIORITIES,
   payload: object
 }
 
-interface FilterPriorities {
+interface IFilterPriorities {
   type: FILTER_PRIORITIES,
-  payload: FilteredPrioritiesPayload
+  payload: object
 }
 
-interface ChangePriority {
+interface IChangePriority {
   type: CHANGE_PRIORITY,
-  payload: ChangePriorityPayload
+  payload: IChangePriorityPayload
 }
 
-export type ItemAction = DataLoad | SelectPriorities | FilterPriorities | ChangePriority
+export type IItemAction = IDataLoad | ISelectPriorities | IFilterPriorities | IChangePriority
 
 let
   lastReturnedDayMilliseconds: number,
@@ -68,7 +66,7 @@ const formRequest = (keyword: string, lang: string, amount: string, addLoad: boo
       `from=${day}&` +
       `to=${day}&` +
       `pageSize=${amount}&` +
-      'apiKey=06629c8bc17b48ce8e6829abec827a3a';
+      'apiKey=a248227dc670456799b1d0831ed0d47a';
 
   return new Request(url);
 };
@@ -81,19 +79,23 @@ const generatePriority = (min: number, max: number): number => {
 };
 
 // Fetching data from API for initial view on page
-export const getData = async (dispatch: Function) => {
+export const getData = async (dispatch: Dispatch<IItemAction>) => {
   try {
-    const response = await fetch(formRequest('IT', 'en', '10', false));
+    const response = await fetch(formRequest('IT', 'en', '10', true));
     const responseJSON = await response.json();
+
+    if (!responseJSON.totalResults) {
+      throw new Error('Invalid request or News API server currently unavailable');
+    }
 
     const
         priorities = {},
-        articles: Array<ItemObject> = responseJSON.articles;
+        articles: IItemObject[] = responseJSON.articles;
 
     responseArticlesAmount = articles.length;
     articles.map((item, i) => {
       // Set priority
-      item['priority'] = generatePriority(1, 5);
+      item.priority = generatePriority(1, 5);
 
       // Form an object of arrays, sorted by priority with article indexes
       if (!priorities[item.priority]) {
@@ -108,15 +110,15 @@ export const getData = async (dispatch: Function) => {
     // Call an actions from reducer
     dispatch({ type: DATA_LOADED, payload: articles });
     dispatch({ type: SELECT_PRIORITIES, payload: priorities });
-    dispatch({ type: FILTER_PRIORITIES, payload: Object.keys(priorities) });
+    dispatch({ type: FILTER_PRIORITIES, payload: priorities });
 
   } catch (error) {
-    console.log(error);
+    throw new Error(error)
   }
 };
 
 // Fetching data from API, adding new articles to list
-export const addNews = async (dispatch: Function) => {
+export const addNews = async (dispatch: Dispatch<IItemAction>) => {
   try {
     const response = await fetch(formRequest('IT', 'en', '5', true));
     const responseJSON = await response.json();
@@ -124,11 +126,11 @@ export const addNews = async (dispatch: Function) => {
     const
       priorities = {},
       increaseIndex = moreClickCounter ? (responseArticlesAmount + 5 * moreClickCounter) : responseArticlesAmount, // Modifiying indexes, which depends on day in request
-      articles: Array<ItemObject> = responseJSON.articles;
+      articles: IItemObject[] = responseJSON.articles;
 
     articles.map((item, i) => {
       // Set priority
-      item['priority'] = generatePriority(1, 5);
+      item.priority = generatePriority(1, 5);
 
       // Form an object of arrays, sorted by priority with article indexes
       if (!priorities[item.priority]) {
@@ -146,12 +148,12 @@ export const addNews = async (dispatch: Function) => {
     dispatch({ type: SELECT_PRIORITIES, payload: priorities });
 
   } catch (error) {
-    console.log(error);
+    throw new Error(error)
   }
 };
 
 // Update priorities that selected in filter block
-export const filteredPriorities = (dispatch: Function, payload: FilteredPrioritiesPayload) => {
+export const filteredPriorities = (dispatch: Dispatch<IItemAction>, payload: object) => {
   dispatch({
     type: FILTER_PRIORITIES,
     payload
@@ -159,7 +161,7 @@ export const filteredPriorities = (dispatch: Function, payload: FilteredPrioriti
 };
 
 // Update article priority with new value
-export const changePriority = (dispatch: Function, payload: ChangePriorityPayload) => {
+export const changePriority = (dispatch: Dispatch<IItemAction>, payload: IChangePriorityPayload) => {
   dispatch({
     type: CHANGE_PRIORITY,
     payload

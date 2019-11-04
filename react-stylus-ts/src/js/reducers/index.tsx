@@ -1,10 +1,10 @@
-import {ItemObject, StoreState} from '../types';
+import {IItemObject, IStoreState} from '../types';
 
+import { IItemAction } from '../actions';
 import * as constants from '../constants/action-types';
-import { ItemAction } from '../actions';
 
 // Applying actions
-function reducer(state: StoreState, action: ItemAction): StoreState {
+function reducer(state: IStoreState, action: IItemAction): IStoreState {
   switch (action.type) {
     case constants.DATA_LOADED:
       return {
@@ -16,7 +16,7 @@ function reducer(state: StoreState, action: ItemAction): StoreState {
         ...state.priorities
       };
 
-      for (let key in action.payload) {
+      for (const key in action.payload) {
         if (Object.prototype.hasOwnProperty.call(action.payload, key)) {
           stateCopy[key] = stateCopy[key] ? stateCopy[key].concat(action.payload[key]) : action.payload[key];
         }
@@ -32,18 +32,16 @@ function reducer(state: StoreState, action: ItemAction): StoreState {
     case constants.FILTER_PRIORITIES:
       return {
         ...state,
-        filteredPriorities: action.payload.filteredPriorities
+        filteredPriorities: Object.keys(action.payload)
       };
     case constants.CHANGE_PRIORITY:
       const
         prioritiesCopy: object = state.priorities,
-        newsCopy: Array<ItemObject> = state.remoteNews,
+        newsCopy: IItemObject[] = state.remoteNews,
         newValue = action.payload.newPriority,
-        oldValue = action.payload.oldPriority;
-
-      let
-          oldArticleSet: Array<number> = prioritiesCopy[oldValue],
-          newArticleSet: Array<number> = prioritiesCopy[newValue];
+        oldValue = action.payload.oldPriority,
+        oldArticleSet: number[] = prioritiesCopy[oldValue],
+        newArticleSet: number[] = prioritiesCopy[newValue];
 
       // Update array with articles
       newsCopy[action.payload.id].priority = newValue;
@@ -61,8 +59,7 @@ function reducer(state: StoreState, action: ItemAction): StoreState {
       }
 
       prioritiesCopy[newValue].push(action.payload.id);
-      prioritiesCopy[newValue] =
-          newArticleSet.sort((a, b) => a - b);
+      prioritiesCopy[newValue] = newArticleSet.sort((a, b) => a - b);
 
       return {
         ...state,

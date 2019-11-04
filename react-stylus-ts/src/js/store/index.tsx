@@ -1,31 +1,36 @@
 import React from 'react';
 import reducer from '../reducers';
 
-import { StoreState } from '../types';
+import { IItemAction } from '../actions';
+import { IStoreState } from '../types';
 
-interface ContextProps {
-  state: StoreState,
-  dispatch: ({type}:{type: string}) => void
+interface IProps {
+  children: React.ReactNode;
+};
+
+interface IContextProps {
+  state: IStoreState,
+  dispatch: React.Dispatch<IItemAction>
 }
 
 // Set a 'schema' for state
-const initialState = {
+const initialState: IStoreState = {
   remoteNews: [],
   priorities: {},
   filteredPriorities: [],
   updateFilters: false
 };
 
-export const Store = React.createContext({} as ContextProps);
+export const Store = React.createContext({} as IContextProps);
 
-export function StoreProvider(props) {
+export const StoreProvider = ({ children }: IProps): JSX.Element => {
   const
     [state, dispatch] = React.useReducer(reducer, initialState),
     value = { state, dispatch };
 
   return (
     <Store.Provider value={value}>
-      {props.children}
+      {children}
     </Store.Provider>
   )
 }

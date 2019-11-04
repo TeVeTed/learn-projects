@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { ItemObject } from '../types';
+import { IItemObject } from '../types';
 
-import { Store } from '../store';
 import { getData } from '../actions';
+import { Store } from '../store';
 
 import Post from "./Post";
 
@@ -11,21 +11,23 @@ const Feed = () => {
 	const { state, dispatch } = React.useContext(Store);
 
 	React.useEffect(() => {
-		!state.remoteNews.length && getData(dispatch);
+		if (!state.remoteNews.length) {
+			getData(dispatch)
+		}
 	});
 
-	const getFilteredNews = (filters: Array<string>, allByPriority: object) => {
-		let filteredArticles: Array<number> = [];
+	const getFilteredNews = (filters: string[], allByPriority: object) => {
+		let filteredArticles: number[] = [];
 
 		filters.forEach(item => filteredArticles = filteredArticles.concat(allByPriority[item]));
 
 		return filteredArticles.sort((a, b) => a - b);
 	};
 
-	let newPosts: Array<ItemObject> = [];
+	let newPosts: IItemObject[] = [];
 	const
 		filteredNews = getFilteredNews(state.filteredPriorities, state.priorities),
-		remoteNews: Array<ItemObject> = state.remoteNews;
+		remoteNews: IItemObject[] = state.remoteNews;
 
 	if (filteredNews.length) {
 		newPosts = remoteNews.filter((item, i) => filteredNews.indexOf(i) !== -1);

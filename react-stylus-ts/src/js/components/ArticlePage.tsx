@@ -1,20 +1,29 @@
 import React from 'react';
+
 import { Link, RouteComponentProps } from "@reach/router";
 
-import { Store } from '../store';
 import { changePriority } from "../actions";
+import { Store } from '../store';
 
 import { PRIORITY_LIMITS } from "../constants/action-types";
 
-const isNumber = (index: any): index is number => {
-	return typeof index === 'number';
+const defaultArticle = {
+	author: 'Undefined',
+  	description: 'Undefined',
+  	priority: 0,
+  	source: {
+		  id: 0,
+		  name: 'Undefined'
+	  },
+  	title: 'Undefined',
+  	urlToImage: 'Undefined',
 };
 
-interface Props extends RouteComponentProps {
-	index?: number
+interface IProps extends RouteComponentProps {
+	index?: number;
 }
 
-const ArticlePage = (props: Props) => {
+const ArticlePage: React.FC<IProps> = props => {
 	const { state, dispatch } = React.useContext(Store);
 
 	const
@@ -23,12 +32,12 @@ const ArticlePage = (props: Props) => {
 
 	const handleClick = () => setPriorityChanging(!priorityChanging);
 
-	const article = state.remoteNews[props.index];
+	const article = props.index ? state.remoteNews[props.index] : defaultArticle;
 
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 
-		if (newPriority) {
+		if (newPriority && props.index) {
 			changePriority(
 				dispatch,
 				{
@@ -46,7 +55,7 @@ const ArticlePage = (props: Props) => {
 
 	const Button = () => {
 		return (
-			<button className='button' onClick={() => handleClick()}>
+			<button className='button' onClick={handleClick}>
 				Change priority {article.priority}
 			</button>
 		);
@@ -64,7 +73,7 @@ const ArticlePage = (props: Props) => {
 					>
 						<span className='label-title'>{i}</span>
 						<input
-							onChange={event => handleChange(event)}
+							onChange={handleChange}
 							type="radio"
 							name="articlePriority"
 							value={i}
@@ -72,13 +81,13 @@ const ArticlePage = (props: Props) => {
 							id={'articlePriority' + i}
 							className='checkbox-button'
 						/>
-						<span className="checkmark"></span>
+						<span className="checkmark" />
 					</label>
 				</li>
 			);
 		}
 		return (
-			<form onSubmit={event => handleSubmit(event)}>
+			<form onSubmit={handleSubmit}>
 				<ul className='prioriry-list'>
 					{radioSet}
 				</ul>

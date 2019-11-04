@@ -10,7 +10,7 @@ const More = () => {
 
 	return (
 			<button
-					onClick={() => handleClick()}
+					onClick={handleClick}
 					className='button more-btn'
 			>
 				Load more news

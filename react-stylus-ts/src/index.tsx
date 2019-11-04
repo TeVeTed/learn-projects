@@ -1,6 +1,7 @@
 // React
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import { Router } from '@reach/router';
 
 // ContextAPI
@@ -11,8 +12,8 @@ import App from './js/components/App';
 import ArticlePage from './js/components/ArticlePage';
 
 // Stylesheets
-import './assets/styles/main.css';
 import 'font-awesome/css/font-awesome.min.css';
+import './assets/styles/main.css';
 
 ReactDOM.render(
 	<StoreProvider>

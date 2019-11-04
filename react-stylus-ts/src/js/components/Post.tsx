@@ -1,18 +1,19 @@
 import React from 'react';
+
 import { Link } from '@reach/router';
 
-import { Store } from '../store';
 import { changePriority } from "../actions";
-import { ItemObject } from '../types';
+import { Store } from '../store';
+import { IItemObject } from '../types';
 
 import { PRIORITY_LIMITS } from "../constants/action-types";
 
-interface Props {
-	value: ItemObject,
+interface IProps {
+	value: IItemObject,
 	id: number
 }
 
-const Post = (props: Props) => {
+const Post = (props: IProps) => {
 	const { dispatch } = React.useContext(Store);
 
 	const
@@ -41,7 +42,7 @@ const Post = (props: Props) => {
 
 	const Button = () => {
 		return (
-				<button className='button' onClick={() => handleClick()}>
+				<button className='button' onClick={handleClick}>
 					Change priority {props.value.priority}
 				</button>
 		);
@@ -59,7 +60,7 @@ const Post = (props: Props) => {
 						>
 							<span className='label-title'>{i}</span>
 							<input
-									onChange={event => handleChange(event)}
+									onChange={handleChange}
 									type="radio"
 									name="articlePriority"
 									value={i}
@@ -67,13 +68,13 @@ const Post = (props: Props) => {
 									id={'articlePriority' + i}
 									className='checkbox-button'
 							/>
-							<span className="checkmark"></span>
+							<span className="checkmark" />
 						</label>
 					</li>
 			);
 		}
 		return (
-				<form onSubmit={event => handleSubmit(event)}>
+				<form onSubmit={handleSubmit}>
 					<ul className='prioriry-list'>
 						{radioSet}
 					</ul>
