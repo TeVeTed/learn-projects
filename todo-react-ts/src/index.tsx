@@ -11,7 +11,7 @@ import { ItemAction } from './actions';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const store = createStore<StoreState, ItemAction, any, any>(items, {
+const store = createStore<any, ItemAction, any, any>(items, {
   items: [],
   closed: []
 });
